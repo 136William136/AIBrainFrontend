@@ -1,3 +1,17 @@
-/* styles.css */
 
+.message-box {
+    /*position: relative;*/
+}
+/* styles.css */
+.user-message {
+    border-bottom: 1px solid black;
+    padding: 30px;
+    text-align: center;
+}
+
+.bot-message {
+    border-bottom: 1px solid black;
+    padding: 30px;
+    text-align: center;
+}
 /* Add styles here to customize the appearance of your app */
