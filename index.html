@@ -7,12 +7,17 @@
 </head>
 <body>
 <div>
-  <input type="text" id="inputText" placeholder="请输入消息">
-  <button id="sendButton" onclick="callBackendAPI()">发送</button>
+  <span class="bottom-message">
+    <input type="text" id="inputText" placeholder="请输入消息" class="user-input">
+    <button id="sendButton" onclick="callBackendAPI()">发送</button>
+  <button id="clearButton" onclick="clearMessageBox()">清空</button>
+  </span>
+
 </div>
 <div id="messageBox" class="message-box"></div>
 
 <script src="node_modules/sse.js/lib/sse.js"></script>
+<script src="public.js"></script>
 <script src="index.js"></script>
 
 </body>

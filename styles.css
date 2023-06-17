@@ -1,6 +1,10 @@
+.user-input {
+    width: 80%;
+    height: 30px
+}
 
 .message-box {
-    /*position: relative;*/
+    margin-bottom: 50px;
 }
 /* styles.css */
 .user-message {
@@ -13,5 +17,17 @@
     border-bottom: 1px solid black;
     padding: 30px;
     text-align: center;
+    background-color: whitesmoke;
+}
+
+.bottom-message {
+    width: 100%;
+    margin-bottom: 1px;
+    opacity: 80%;
+    /*box-sizing: content-box;*/
+    position: fixed;
+    bottom: 0;
+    overflow-x: auto;
+    padding: 2px;
 }
 /* Add styles here to customize the appearance of your app */

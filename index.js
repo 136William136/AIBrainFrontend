@@ -1,6 +1,21 @@
+function initialize(){
+    // 获取按钮元素
+    var button = document.getElementById("sendButton");
 
+    // 添加键盘事件监听器
+    document.addEventListener("keydown", function(event) {
+        // 检查按下的键是否是回车键（键码为13）
+        if (event.keyCode === 13) {
+            // 执行按钮的点击事件
+            button.click();
+        }
+    });
+}
+
+initialize();
 function callBackendAPI() {
     let userMsg = document.getElementById('inputText').value
+    document.getElementById('inputText').value = "";
     /* 上下文 */
     const messageBox = document.getElementById("messageBox");
     const children = messageBox.children;
@@ -57,6 +72,8 @@ function callBackendAPI() {
     botMessage.classList.add("bot-message");
     messageBox.appendChild(botMessage);
 
+    scrollToBottom();
+
     source.addEventListener('message', function(e) {
         let content = getDecode(e.data)
         if (content != "[DONE]") {
@@ -66,6 +83,10 @@ function callBackendAPI() {
     source.stream();
 
 
+}
+
+function clearMessageBox(){
+    document.getElementById("messageBox").innerHTML = "";
 }
 
 function getDecode(str){
