@@ -82,6 +82,7 @@ function callBackendAPI() {
                 botMessage.innerHTML = convert;
             }else{
                 sendButton.disabled = false;
+                addCodeCopyButton()
             }
             Prism.highlightAll();
         }
@@ -97,11 +98,44 @@ function clearMessageBox(){
     sendButton.disabled = false;
 }
 
+function addCodeCopyButton(){
+    // 获取所有的<pre><code>元素
+    var codeElements = document.querySelectorAll('pre code');
+    codeElements.forEach(function(element) {
+        // 生成随机ID
+        var randomId = 'code'+generateUUID();
+        // 添加ID属性
+        element.setAttribute('id', randomId);
+        // 创建按钮元素
+        var button = document.createElement('button');
+        button.classList.add('fas');
+        button.classList.add('fa-copy');
+        button.classList.add('copy-button');
+        button.addEventListener('click', function (){
+            let code = document.getElementById(randomId).innerHTML;
+            navigator.clipboard.writeText(code)
+                .then(() => {
+                    button.classList.remove('fa-copy');
+                    button.classList.add('fa-check-circle');
+                    setTimeout(function () {
+                        button.classList.remove('fa-check-circle');
+                        button.classList.add('fa-copy');
+                    },3000)
+                })
+                .catch((error) => {
+                    console.error('复制失败：', error);
+                });
+        });
+        // 在<pre>标签前插入按钮
+        element.parentNode.insertBefore(button, element);
+    });
+}
+
 function getSubMessageList(userMsg){
     /* 上下文 */
     const messageBox = document.getElementById("messageBox");
     const children = messageBox.children;
-    const startIndex = Math.max(children.length - 5, 0);
+    const startIndex = Math.max(children.length - 7, 0);
     let messageList = [];
     for (let i = startIndex; i < children.length; i++) {
         const child = children[i];

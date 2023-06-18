@@ -1,7 +1,7 @@
 /* 消息气泡 */
 .message {
     display: block;
-    max-width: 70%;
+    max-width: 80%;
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 10px;
@@ -67,6 +67,22 @@
     cursor: pointer;
     margin-left: 5px;
     width: 40px;
+}
+
+.copy-button {
+    padding: 5px 5px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    background-color: rgb(236, 233, 240);
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 5px;
+    width: 40px;
+    float: right;
+    clear: both;
 }
 
 /* */
