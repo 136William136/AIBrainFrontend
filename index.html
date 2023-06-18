@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="./styles.css">
   <link rel="stylesheet" href="node_modules/prismjs/themes/prism.css">
+  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
   <title>Chat App</title>
 </head>
 <body>
@@ -13,13 +14,16 @@
 <script src="public.js"></script>
 <div>
   <span class="bottom-message">
+    <button id="pauseButton" class="bottom-button shadow fa fa-pause"></button>
     <input type="text" id="inputText" placeholder="" class="user-input">
-    <button id="sendButton" onclick="callBackendAPI()" class="bottom-button shadow">发送</button>
-  <button id="clearButton" onclick="clearMessageBox()" class="bottom-button shadow">清空</button>
+    <button id="sendButton" onclick="callBackendAPI()" class="bottom-button shadow fas fa-paper-plane"></button>
+    <button id="clearButton" onclick="clearMessageBox()" class="bottom-button shadow fas fa-trash"></button>
   </span>
 
 </div>
-<div id="messageBox" class="message-box"></div>
+<div id="messageBox" class="message-box">
+  <div class="message shadow bot-message">Hello! How can I assist you today?</div>
+</div>
 
 <script src="index.js"></script>
 

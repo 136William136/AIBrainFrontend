@@ -17,42 +17,20 @@ function initialize(){
 initialize();
 
 function callBackendAPI() {
-    let userMsg = document.getElementById('inputText').value
+    /* 清空内容，禁用发送按钮 */
+    // let sendButton = document.getElementById("sendButton");
+    // sendButton.disabled = true;
+    let userMsg = document.getElementById('inputText').value;
     document.getElementById('inputText').value = "";
-    /* 上下文 */
-    const messageBox = document.getElementById("messageBox");
-    const children = messageBox.children;
-    const startIndex = Math.max(children.length - 5, 0);
-    let messageList = [];
 
-    for (let i = startIndex; i < children.length; i++) {
-        const child = children[i];
-        // 检查子元素的class和role
-        const className = child.className;
-
-        if (className.includes('bot-message')) {
-            messageList.push({
-                role: 'assistant',
-                content: child.innerText
-            });
-        } else if (className.includes('user-message')) {
-            messageList.push({
-                role: 'user',
-                content: child.innerText
-            });
-        }
-    }
-    messageList.push({
-        role:'user',
-        content:userMsg
-    })
+    /* 截取一部分message list*/
+    let messageList = getSubMessageList(userMsg);
 
     const data = {
         messageList,
         functionType: 'food'
     };
 
-    console.log(messageList);
     const url = 'http://43.159.130.162:8087/ai/chat_stream';
     //const url = 'http://localhost:8087/ai/chat_stream';
 
@@ -65,6 +43,7 @@ function callBackendAPI() {
         payload: JSON.stringify(data)
     })
 
+    const messageBox = document.getElementById("messageBox");
     let userMessage = document.createElement("div");
     userMessage.innerHTML = userMsg;
     userMessage.classList.add("message");
@@ -83,14 +62,29 @@ function callBackendAPI() {
 
     let assistantResponse = "";
 
+    let isPaused = false;
+    /* 给按钮绑定事件 */
+    let sendButton = document.getElementById("sendButton");
+    sendButton.disabled = true;
+    let pauseButton = document.getElementById("pauseButton");
+    pauseButton.addEventListener("click",function (){
+        isPaused = true;
+        sendButton.disabled = false;
+    });
+
+
     source.addEventListener('message', function(e) {
-        let content = getDecode(e.data);;
-        if (content != "[DONE]") {
-            assistantResponse += content;
-            let convert = md.render(assistantResponse);
-            botMessage.innerHTML = convert;
+        if (!isPaused) {
+            let content = getDecode(e.data);
+            if (content != "[DONE]") {
+                assistantResponse += content;
+                let convert = md.render(assistantResponse);
+                botMessage.innerHTML = convert;
+            }else{
+                sendButton.disabled = false;
+            }
+            Prism.highlightAll();
         }
-        Prism.highlightAll();
     });
     source.stream();
 
@@ -99,6 +93,39 @@ function callBackendAPI() {
 
 function clearMessageBox(){
     document.getElementById("messageBox").innerHTML = "";
+    let sendButton = document.getElementById("sendButton");
+    sendButton.disabled = false;
+}
+
+function getSubMessageList(userMsg){
+    /* 上下文 */
+    const messageBox = document.getElementById("messageBox");
+    const children = messageBox.children;
+    const startIndex = Math.max(children.length - 5, 0);
+    let messageList = [];
+    for (let i = startIndex; i < children.length; i++) {
+        const child = children[i];
+        // 检查子元素的class和role
+        const className = child.className;
+
+        if (className.includes('bot-message')) {
+            messageList.push({
+                role: 'assistant',
+                content: child.innerText
+            });
+        } else if (className.includes('user-message')) {
+            messageList.push({
+                role: 'user',
+                content: child.innerText
+            });
+        }
+    }
+
+    messageList.push({
+        role:'user',
+        content:userMsg
+    })
+    return messageList;
 }
 
 function getDecode(str){

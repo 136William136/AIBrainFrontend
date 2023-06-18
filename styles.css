@@ -27,7 +27,7 @@
 
 /* 底部输入框 */
 .user-input {
-    width: 80%;
+    width: 75%;
     height: 30px;
     border-radius: 5px;
 }
@@ -49,16 +49,16 @@
 }
 
 .bottom-button {
-    padding: 7px 7px;
+    padding: 10px 10px;
     font-size: 16px;
     text-align: center;
     text-decoration: none;
     background-color: rgb(236, 233, 240);
-    color: darkblue;
+    color: black;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 3px;
+    margin-left: 5px;
 }
 
 /* */
