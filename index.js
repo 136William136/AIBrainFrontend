@@ -68,12 +68,14 @@ function callBackendAPI() {
     let userMessage = document.createElement("div");
     userMessage.innerHTML = userMsg;
     userMessage.classList.add("message");
+    userMessage.classList.add("shadow");
     userMessage.classList.add("user-message");
     messageBox.appendChild(userMessage);
 
     let botMessage = document.createElement("div");
     botMessage.innerHTML = "";
     botMessage.classList.add("message");
+    botMessage.classList.add("shadow");
     botMessage.classList.add("bot-message");
     messageBox.appendChild(botMessage);
 
