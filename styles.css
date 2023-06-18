@@ -8,7 +8,7 @@
 }
 
 .user-message {
-    background-color: #b3d6ff;
+    background-color: darkseagreen;
     float: right;
     clear: both;
 }
@@ -83,6 +83,8 @@
     width: 40px;
     float: right;
     clear: both;
+    position: relative;
+    z-index: 1;
 }
 
 /* */

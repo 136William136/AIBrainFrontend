@@ -102,6 +102,9 @@ function addCodeCopyButton(){
     // 获取所有的<pre><code>元素
     var codeElements = document.querySelectorAll('pre code');
     codeElements.forEach(function(element) {
+        if (element.previousElementSibling && element.previousElementSibling.tagName == 'BUTTON'){
+            return;
+        }
         // 生成随机ID
         var randomId = 'code'+generateUUID();
         // 添加ID属性
