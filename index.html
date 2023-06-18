@@ -3,9 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="./styles.css">
+  <link rel="stylesheet" href="node_modules/prismjs/themes/prism.css">
   <title>Chat App</title>
 </head>
 <body>
+<script src="node_modules/sse.js/lib/sse.js"></script>
+<script src="node_modules/markdown-it/dist/markdown-it.js"></script>
+<script src="node_modules/prismjs/prism.js"></script>
+<script src="public.js"></script>
 <div>
   <span class="bottom-message">
     <input type="text" id="inputText" placeholder="请输入消息" class="user-input">
@@ -16,8 +21,6 @@
 </div>
 <div id="messageBox" class="message-box"></div>
 
-<script src="node_modules/sse.js/lib/sse.js"></script>
-<script src="public.js"></script>
 <script src="index.js"></script>
 
 </body>

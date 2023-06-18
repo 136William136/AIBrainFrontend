@@ -1,3 +1,5 @@
+var md = window.markdownit();
+
 function initialize(){
     // 获取按钮元素
     var button = document.getElementById("sendButton");
@@ -13,6 +15,7 @@ function initialize(){
 }
 
 initialize();
+
 function callBackendAPI() {
     let userMsg = document.getElementById('inputText').value
     document.getElementById('inputText').value = "";
@@ -64,21 +67,28 @@ function callBackendAPI() {
 
     let userMessage = document.createElement("div");
     userMessage.innerHTML = userMsg;
+    userMessage.classList.add("message");
     userMessage.classList.add("user-message");
     messageBox.appendChild(userMessage);
 
     let botMessage = document.createElement("div");
     botMessage.innerHTML = "";
+    botMessage.classList.add("message");
     botMessage.classList.add("bot-message");
     messageBox.appendChild(botMessage);
 
     scrollToBottom();
 
+    let assistantResponse = "";
+
     source.addEventListener('message', function(e) {
-        let content = getDecode(e.data)
+        let content = getDecode(e.data);;
         if (content != "[DONE]") {
-            botMessage.innerHTML += content
+            assistantResponse += content;
+            let convert = md.render(assistantResponse);
+            botMessage.innerHTML = convert;
         }
+        Prism.highlightAll();
     });
     source.stream();
 
