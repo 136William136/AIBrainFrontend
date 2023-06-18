@@ -28,8 +28,15 @@
 /* 底部输入框 */
 .user-input {
     width: 75%;
-    height: 30px;
+    height: 33px;
+    text-decoration: none;
+    background-color: rgb(236, 233, 240);
+    color: black;
+    border: none;
+    margin-left: 5px;
     border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 5px;
 }
 
 .bottom-message {
@@ -59,6 +66,7 @@
     border-radius: 5px;
     cursor: pointer;
     margin-left: 5px;
+    width: 40px;
 }
 
 /* */
