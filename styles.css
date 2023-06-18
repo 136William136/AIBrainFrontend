@@ -1,14 +1,4 @@
-.user-input {
-    width: 80%;
-    height: 30px
-}
-
-.message-box {
-    margin-bottom: 50px;
-    overflow-y: scroll;
-    padding: 10px;
-}
-
+/* 消息气泡 */
 .message {
     display: block;
     max-width: 70%;
@@ -33,6 +23,18 @@
     content: "";
     display: table;
     clear: both;
+}
+
+/* 底部输入框 */
+.user-input {
+    width: 80%;
+    height: 30px
+}
+
+.message-box {
+    margin-bottom: 50px;
+    overflow-y: scroll;
+    padding: 10px;
 }
 
 
