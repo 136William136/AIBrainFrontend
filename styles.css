@@ -48,6 +48,7 @@
     bottom: 0;
     overflow-x: auto;
     padding: 2px;
+    white-space: nowrap;
 }
 
 .message-box {
@@ -59,8 +60,8 @@
 .bottom-button {
     padding: 10px 10px;
     font-size: 16px;
-    text-align: center;
-    text-decoration: none;
+    /*text-align: center;*/
+    /*text-decoration: none;*/
     background-color: rgb(236, 233, 240);
     color: black;
     border: none;

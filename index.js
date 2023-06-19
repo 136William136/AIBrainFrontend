@@ -2,14 +2,18 @@ var md = window.markdownit();
 
 function initialize(){
     // 获取按钮元素
-    var button = document.getElementById("sendButton");
-
+    let sendButton = document.getElementById("sendButton");
+    let pauseButton = document.getElementById("pauseButton");
     // 添加键盘事件监听器
     document.addEventListener("keydown", function(event) {
         // 检查按下的键是否是回车键（键码为13）
         if (event.keyCode === 13) {
             // 执行按钮的点击事件
-            button.click();
+            if (pauseButton.style.display === "inline"){
+                pauseButton.click();
+            }else{
+                sendButton.click();
+            }
         }
     });
 }
@@ -18,11 +22,11 @@ initialize();
 
 function callBackendAPI() {
     /* 清空内容，禁用发送按钮 */
-    // let sendButton = document.getElementById("sendButton");
-    // sendButton.disabled = true;
     let userMsg = document.getElementById('inputText').value;
     document.getElementById('inputText').value = "";
-
+    if (userMsg.trim().length == 0){
+        return;
+    }
     /* 截取一部分message list*/
     let messageList = getSubMessageList(userMsg);
 
@@ -62,26 +66,27 @@ function callBackendAPI() {
 
     let assistantResponse = "";
 
-    let isPaused = false;
     /* 给按钮绑定事件 */
     let sendButton = document.getElementById("sendButton");
-    sendButton.disabled = true;
     let pauseButton = document.getElementById("pauseButton");
-    pauseButton.addEventListener("click",function (){
-        isPaused = true;
-        sendButton.disabled = false;
+    let paused = false;
+    sendButton.style.display = "none";
+    pauseButton.style.display = "inline";
+    pauseButton.addEventListener('click',function (){
+        paused = true;
+        pauseStream();
     });
 
-
     source.addEventListener('message', function(e) {
-        if (!isPaused) {
+        if (!paused) {
             let content = getDecode(e.data);
             if (content != "[DONE]") {
                 assistantResponse += content;
                 let convert = md.render(assistantResponse);
                 botMessage.innerHTML = convert;
             }else{
-                sendButton.disabled = false;
+                sendButton.style.display = "inline";
+                pauseButton.style.display = "none";
                 addCodeCopyButton();
             }
             Prism.highlightAll();
@@ -92,10 +97,20 @@ function callBackendAPI() {
 
 }
 
+function pauseStream(){
+    let sendButton = document.getElementById("sendButton");
+    let pauseButton = document.getElementById("pauseButton");
+    sendButton.classList.add()
+    sendButton.style.display = "inline";
+    pauseButton.style.display = "none";
+}
+
 function clearMessageBox(){
     document.getElementById("messageBox").innerHTML = "";
     let sendButton = document.getElementById("sendButton");
-    sendButton.disabled = false;
+    let pauseButton = document.getElementById("pauseButton");
+    sendButton.style.display = "inline";
+    pauseButton.style.display = "none";
 }
 
 function addCodeCopyButton(){
