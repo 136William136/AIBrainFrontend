@@ -27,7 +27,8 @@
 
 /* 底部输入框 */
 .user-input {
-    width: 75%;
+    /*width: 75%;*/
+    width: calc(100% - 200px);
     height: 33px;
     text-decoration: none;
     background-color: rgb(236, 233, 240);

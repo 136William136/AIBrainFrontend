@@ -82,7 +82,7 @@ function callBackendAPI() {
                 botMessage.innerHTML = convert;
             }else{
                 sendButton.disabled = false;
-                addCodeCopyButton()
+                addCodeCopyButton();
             }
             Prism.highlightAll();
         }
