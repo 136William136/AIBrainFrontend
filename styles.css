@@ -19,6 +19,10 @@
     clear: both;
 }
 
+.hello-message {
+    width: 280px;
+}
+
 .clearfix::after {
     content: "";
     display: table;
@@ -49,6 +53,11 @@
     overflow-x: auto;
     padding: 2px;
     white-space: nowrap;
+}
+
+.message-box-container {
+    display: flex;
+    flex-direction: column;
 }
 
 .message-box {
