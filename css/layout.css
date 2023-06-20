@@ -11,8 +11,8 @@ message-container {
 .menu {
     position: fixed;
     top: 0;
-    left: -100px;
-    width: 100px;
+    left: -200px;
+    width: 200px;
     height: 100%;
     background-color: rgba(34, 41, 51, 1);
     z-index: 9999;
@@ -61,5 +61,5 @@ nav a.selected {
 }
 
 .content-container {
-    margin-left: 110px;
+    margin-left: 210px;
 }

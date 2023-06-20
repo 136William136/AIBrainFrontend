@@ -23,13 +23,13 @@ function initialize(){
 
         menu.classList.toggle('active'); //在.active和非.active类之间切换
         let content = document.getElementById('contentContainer');
+        let userInput = document.getElementById("inputText");
         if (menu.classList.contains('active')){
-            console.log("123");
             content.classList.add('content-container');
-
+            userInput.style.width = 'calc(100% - 360px)';
         }else{
-            console.log("456");
             content.classList.remove('content-container');
+            userInput.style.width = 'calc(100% - 150px)';
         }
 
     });
@@ -48,12 +48,11 @@ function callBackendAPI() {
     let messageList = getSubMessageList(userMsg);
 
     const data = {
-        messageList,
-        functionType: 'food'
+        messageList
     };
 
-    const url = 'http://43.159.130.162:8087/ai/chat_stream';
-    //const url = 'http://localhost:8087/ai/chat_stream';
+    //const url = 'http://43.159.130.162:8087/ai/chat_stream';
+    const url = 'http://localhost:8087/ai/chat_stream';
 
     const headers = {
         'Content-Type': 'application/json'
