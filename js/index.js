@@ -1,5 +1,5 @@
 var md = window.markdownit();
-
+const functionRegex = /function loading\.\.\. \[.*\]/;
 function initialize(){
     // 获取按钮元素
     let sendButton = document.getElementById("sendButton");
@@ -96,6 +96,10 @@ function callBackendAPI() {
     source.addEventListener('message', function(e) {
         if (!paused) {
             let content = getDecode(e.data);
+            if (functionRegex.test(botMessage.innerHTML)) {
+                botMessage.innerHTML = '';
+                assistantResponse = '';
+            }
             if (content != "[DONE]") {
                 assistantResponse += content;
                 let convert = md.render(assistantResponse);
