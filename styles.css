@@ -2,7 +2,7 @@
 .message {
     display: block;
     max-width: 80%;
-    margin-bottom: 10px;
+    margin-bottom: 50px;
     padding: 10px;
     border-radius: 10px;
 }
@@ -21,6 +21,7 @@
 
 .hello-message {
     width: 280px;
+    margin-left: 10px;
 }
 
 .clearfix::after {
@@ -32,7 +33,7 @@
 /* 底部输入框 */
 .user-input {
     /*width: 75%;*/
-    width: calc(100% - 200px);
+    width: calc(100% - 250px);
     height: 33px;
     text-decoration: none;
     background-color: rgb(236, 233, 240);
@@ -58,6 +59,7 @@
 .message-box-container {
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 }
 
 .message-box {
@@ -96,6 +98,11 @@
     clear: both;
     position: relative;
     z-index: 1;
+}
+
+.menu-title {
+    text-align: center;
+    color: white;
 }
 
 /* */

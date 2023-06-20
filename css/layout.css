@@ -1,0 +1,65 @@
+body {
+    background-color: rgba(227, 244, 255, 1);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+message-container {
+    margin-top: 30px;
+}
+
+.menu {
+    position: fixed;
+    top: 0;
+    left: -100px;
+    width: 100px;
+    height: 100%;
+    background-color: rgba(34, 41, 51, 1);
+    z-index: 9999;
+    transition: left 0.3s ease-in; /*添加CSS过渡*/
+}
+
+.menu.active {
+    left: 0; /*通过添加.active类来切换菜单的位置*/
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu ul li {
+    margin-bottom: 10px;
+}
+
+.menu ul li a {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+}
+
+.menu ul li a:hover {
+    color: rgba(54, 94, 138, 1);
+}
+
+nav a.selected {
+    font-weight: bold;
+    color: rgba(54, 94, 138, 1);
+}
+
+.menu-choice {
+    width: 70px;
+}
+
+.menu-button {
+    margin-left: 10px;
+}
+
+.content-container {
+    margin-left: 110px;
+}

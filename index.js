@@ -16,6 +16,23 @@ function initialize(){
             }
         }
     });
+    const menuButton = document.getElementById('menuButton');
+    const menu = document.querySelector('.menu');
+
+    menuButton.addEventListener('click', function() {
+
+        menu.classList.toggle('active'); //在.active和非.active类之间切换
+        let content = document.getElementById('contentContainer');
+        if (menu.classList.contains('active')){
+            console.log("123");
+            content.classList.add('content-container');
+
+        }else{
+            console.log("456");
+            content.classList.remove('content-container');
+        }
+
+    });
 }
 
 initialize();

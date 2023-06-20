@@ -3,43 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="./styles.css">
+  <link rel="stylesheet" type="text/css" href="css/layout.css">
   <link rel="stylesheet" href="node_modules/prismjs/themes/prism.css">
   <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
   <title>Chat App</title>
-  <style>
-    body {
-      background-color: rgba(227, 244, 255, 1);
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-  </style>
 </head>
 <body>
-<script src="node_modules/sse.js/lib/sse.js"></script>
-<script src="node_modules/markdown-it/dist/markdown-it.js"></script>
-<script src="node_modules/prismjs/prism.js"></script>
-<script src="node_modules/clipboard/dist/clipboard.min.js"></script>
-<script src="public.js"></script>
-<div>
-  <span class="bottom-message">
-    <button id="clearButton" onclick="clearMessageBox()" class="bottom-button shadow fas fa-trash"></button>
-    <input type="text" id="inputText" placeholder="" class="user-input shadow">
-    <button id="sendButton" onclick="callBackendAPI()"
+  <script src="node_modules/sse.js/lib/sse.js"></script>
+  <script src="node_modules/markdown-it/dist/markdown-it.js"></script>
+  <script src="node_modules/prismjs/prism.js"></script>
+  <script src="node_modules/clipboard/dist/clipboard.min.js"></script>
+  <script src="public.js"></script>
+
+  <nav class="menu">
+    <h3 class="menu-title">AI Chat</h3>
+<!--    <ul >-->
+<!--      <li class="menu-choice"><a href="#" >Room</a></li>-->
+<!--    </ul>-->
+  </nav>
+
+  <div id="contentContainer">
+    <header>
+      <i id="menuButton" class="menu-button fas fa-bars"></i>
+    </header>
+    <main>
+    <span class="bottom-message">
+      <button id="clearButton" onclick="clearMessageBox()" class="bottom-button shadow fas fa-trash"></button>
+      <input type="text" id="inputText" placeholder="" class="user-input shadow">
+      <button id="sendButton" onclick="callBackendAPI()"
               class="bottom-button shadow fas fa-paper-plane"></button>
-    <button id="pauseButton"
+      <button id="pauseButton"
               class="bottom-button shadow fa fa-pause" style="display: none"></button>
-  </span>
+    </span>
+      <div class="message-box-container">
+        <div class="message shadow bot-message hello-message">Hello! How can I assist you today?</div>
+        <div id="messageBox" class="message-box"></div>
+      </div>
+    </main>
+  </div>
 
-</div>
-<div class="message-box-container">
-  <div class="message shadow bot-message hello-message">Hello! How can I assist you today?</div>
-  <div id="messageBox" class="message-box">
-</div>
-
-</div>
-
-<script src="index.js"></script>
-
+  <script src="index.js"></script>
 </body>
 </html>
 
