@@ -46,7 +46,7 @@ function callBackendAPI() {
     }
     /* 截取一部分message list*/
     let messageList = getSubMessageList(userMsg);
-
+    console.log(messageList);
     const data = {
         messageList
     };
@@ -64,19 +64,34 @@ function callBackendAPI() {
     })
 
     const messageBox = document.getElementById("messageBox");
+    /* 用户bubble */
+    let bubbleContainer = document.createElement("div");
+    bubbleContainer.classList.add("user-bubble-container");
+    let userIcon = document.createElement("img");
+    userIcon.src = "img/robot.png";
+    userIcon.classList.add("avatar-icon");
     let userMessage = document.createElement("div");
     userMessage.innerHTML = userMsg;
     userMessage.classList.add("message");
     userMessage.classList.add("shadow");
     userMessage.classList.add("user-message");
-    messageBox.appendChild(userMessage);
-
+    bubbleContainer.appendChild(userMessage);
+    bubbleContainer.appendChild(userIcon);
+    messageBox.appendChild(bubbleContainer);
+    /* 助手bubble */
+    let bubbleContainer2 = document.createElement("div");
+    bubbleContainer2.classList.add("bot-bubble-container");
+    let botIcon = document.createElement("img");
+    botIcon.src = "img/chatbot.png";
+    botIcon.classList.add("avatar-icon");
     let botMessage = document.createElement("div");
     botMessage.innerHTML = "";
     botMessage.classList.add("message");
     botMessage.classList.add("shadow");
     botMessage.classList.add("bot-message");
-    messageBox.appendChild(botMessage);
+    bubbleContainer2.appendChild(botIcon);
+    bubbleContainer2.appendChild(botMessage);
+    messageBox.appendChild(bubbleContainer2);
 
     scrollToBottom();
 
@@ -176,7 +191,7 @@ function getSubMessageList(userMsg){
     const startIndex = Math.max(children.length - 7, 0);
     let messageList = [];
     for (let i = startIndex; i < children.length; i++) {
-        const child = children[i];
+        const child = children[i].querySelector("div");
         // 检查子元素的class和role
         const className = child.className;
 

@@ -22,7 +22,7 @@
 <!--    </ul>-->
   </nav>
 
-  <div id="contentContainer">
+  <div id="contentContainer" style="height: 90%">
     <header>
       <i id="menuButton" class="menu-button fas fa-bars"></i>
     </header>
@@ -36,7 +36,11 @@
               class="bottom-button shadow fa fa-pause" style="display: none"></button>
     </span>
       <div class="message-box-container">
-        <div class="message shadow bot-message hello-message">Hello! How can I assist you today?</div>
+        <div class="bot-bubble-container" style="margin-left: 10px">
+          <img src="img/chatbot.png" class="avatar-icon">
+          <div class="message shadow bot-message hello-message">Hello! How can I assist you today?</div>
+        </div>
+
         <div id="messageBox" class="message-box"></div>
       </div>
     </main>
