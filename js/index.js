@@ -181,9 +181,10 @@ function getSubMessageList(userMsg){
         const className = child.className;
 
         if (className.includes('bot-message')) {
+            let text = combineTextAndHTML(child);
             messageList.push({
                 role: 'assistant',
-                content: child.innerText
+                content: text
             });
         } else if (className.includes('user-message')) {
             messageList.push({
@@ -204,4 +205,34 @@ function getDecode(str){
     return decodeURIComponent(atob(str).split('').map(function (c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
+}
+
+function combineTextAndHTML(element) {
+    let result = '';
+
+    // 遍历子元素
+    for (let i = 0; i < element.childNodes.length; i++) {
+        const child = element.childNodes[i];
+
+        // 如果是文本节点，则将文本内容添加到结果中
+        if (child.nodeType === Node.TEXT_NODE) {
+            result += child.textContent;
+        }
+
+        // 如果是图片节点，则将完整的 HTML 添加到结果中
+        if (child.nodeType === Node.ELEMENT_NODE && child.tagName === 'IMG') {
+            result += imageUrlToMarkdown(child.src);
+        }
+
+        // 如果是元素节点，则递归调用函数处理子元素
+        if (child.nodeType === Node.ELEMENT_NODE) {
+            result += combineTextAndHTML(child);
+        }
+    }
+
+    return result;
+}
+
+function imageUrlToMarkdown(url) {
+    return `![picture](${url})`;
 }

@@ -58,7 +58,7 @@
 .message-box-container {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    margin-top: 60px;
 }
 
 .message-box {
