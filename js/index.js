@@ -1,5 +1,4 @@
 var md = window.markdownit();
-const functionRegex = /function loading\.\.\. \[.*\]/;
 function initialize(){
     // 获取按钮元素
     let sendButton = document.getElementById("sendButton");
@@ -46,7 +45,6 @@ function callBackendAPI() {
     }
     /* 截取一部分message list*/
     let messageList = getSubMessageList(userMsg);
-    console.log(messageList);
     const data = {
         messageList
     };
@@ -108,13 +106,13 @@ function callBackendAPI() {
         pauseStream();
     });
 
+    let loading = getLoading();
+    botMessage.append(loading);
+
+
     source.addEventListener('message', function(e) {
         if (!paused) {
             let content = getDecode(e.data);
-            if (functionRegex.test(botMessage.innerHTML)) {
-                botMessage.innerHTML = '';
-                assistantResponse = '';
-            }
             if (content != "[DONE]") {
                 assistantResponse += content;
                 let convert = md.render(assistantResponse);
@@ -250,4 +248,12 @@ function combineTextAndHTML(element) {
 
 function imageUrlToMarkdown(url) {
     return `![picture](${url})`;
+}
+
+function getLoading(){
+    let loading = document.createElement("i");
+    loading.classList.add("fas");
+    loading.classList.add("fa-spinner");
+    loading.classList.add("fa-spin");
+    return loading;
 }

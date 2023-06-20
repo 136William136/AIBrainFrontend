@@ -35,6 +35,7 @@
     margin-right: 5px;
     justify-content: center;
     align-items: center;
+    margin-top: -10px;
 }
 
 .bot-message {
@@ -44,11 +45,11 @@
     display: flex;
     flex-direction: column;
     margin-left: 5px;
+    margin-top: -10px;
 }
 
 .hello-message {
-    width: 280px;
-    height: 40px;
+    height: 50px;
     align-items: center;
     justify-content: center;
     display: flex;
@@ -137,5 +138,17 @@
 /* */
 .shadow {
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.3), 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.fa-spinner {
+    margin-top: 5px;
+    font-size: 30px;
+    color: grey;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 /* Add styles here to customize the appearance of your app */
