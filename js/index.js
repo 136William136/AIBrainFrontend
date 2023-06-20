@@ -51,8 +51,8 @@ function callBackendAPI() {
         messageList
     };
 
-    //const url = 'http://43.159.130.162:8087/ai/chat_stream';
-    const url = 'http://localhost:8087/ai/chat_stream';
+    const url = 'http://43.159.130.162:8087/ai/chat_stream';
+    //const url = 'http://localhost:8087/ai/chat_stream';
 
     const headers = {
         'Content-Type': 'application/json'
