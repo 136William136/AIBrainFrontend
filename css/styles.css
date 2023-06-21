@@ -11,7 +11,7 @@
     flex-direction: row;
     float: right;
     clear: both;
-    max-width: 80%;
+    max-width: 90%;
 }
 
 .bot-bubble-container {
@@ -19,7 +19,7 @@
     flex-direction: row;
     float: left;
     clear: both;
-    max-width: 80%;
+    max-width: 90%;
 }
 
 .avatar-icon {
