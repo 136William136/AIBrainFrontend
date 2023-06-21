@@ -1,4 +1,5 @@
 var md = window.markdownit();
+videoEmbed(md);
 function initialize(){
     // 获取按钮元素
     let sendButton = document.getElementById("sendButton");
@@ -25,7 +26,7 @@ function initialize(){
         let userInput = document.getElementById("inputText");
         if (menu.classList.contains('active')){
             content.classList.add('content-container');
-            userInput.style.width = 'calc(100% - 360px)';
+            userInput.style.width = 'calc(100% - 410px)';
         }else{
             content.classList.remove('content-container');
             userInput.style.width = 'calc(100% - 150px)';
@@ -53,7 +54,8 @@ function callBackendAPI() {
     //const url = 'http://localhost:8087/ai/chat_stream';
 
     const headers = {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin':'*'
     };
 
     let source = new SSE(url, {
@@ -172,8 +174,9 @@ function addCodeCopyButton(){
         button.classList.add('fa-copy');
         button.classList.add('copy-button');
         button.addEventListener('click', function (){
-            let code = document.getElementById(randomId).innerHTML;
-            navigator.clipboard.writeText(code)
+            let code = document.getElementById(randomId);
+            let codeContent = concatenateText(code);
+            navigator.clipboard.writeText(codeContent)
                 .then(() => {
                     button.classList.remove('fa-copy');
                     button.classList.add('fa-check-circle');
@@ -221,6 +224,27 @@ function getSubMessageList(userMsg){
         content:userMsg
     })
     return messageList;
+}
+
+function concatenateText(element) {
+    let text = '';
+
+    // 遍历所有子元素
+    for (let i = 0; i < element.childNodes.length; i++) {
+        const child = element.childNodes[i];
+
+        // 如果子元素是文本节点，则将其内容添加到text变量中
+        if (child.nodeType === Node.TEXT_NODE) {
+            text += child.textContent;
+        }
+
+        // 如果子元素是元素节点，则递归调用concatenateText函数
+        if (child.nodeType === Node.ELEMENT_NODE) {
+            text += concatenateText(child);
+        }
+    }
+
+    return text;
 }
 
 function getDecode(str){
