@@ -1,10 +1,27 @@
-function scrollToBottom() {
+function scrollToBottomSmooth() {
     const element = document.documentElement;
     const bottom = element.scrollHeight - element.clientHeight;
     element.scrollTo({
         top: bottom,
         behavior: 'smooth'
     });
+}
+
+function scrollToBottomQuick() {
+    const element = document.documentElement;
+    const bottom = element.scrollHeight - element.clientHeight;
+    element.scrollTo({
+        top: bottom
+    });
+}
+
+function isScrollbarAtBottom() {
+    var element = document.documentElement;
+    var scrollTop = element.scrollTop;
+    var scrollHeight = element.scrollHeight;
+    var clientHeight = element.clientHeight;
+
+    return scrollTop + clientHeight >= scrollHeight;
 }
 
 function generateUUID() {

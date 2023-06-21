@@ -91,7 +91,7 @@ function callBackendAPI() {
     bubbleContainer2.appendChild(botMessage);
     messageBox.appendChild(bubbleContainer2);
 
-    scrollToBottom();
+    scrollToBottomSmooth();
 
     let assistantResponse = "";
 
@@ -112,6 +112,11 @@ function callBackendAPI() {
 
     source.addEventListener('message', function(e) {
         if (!paused) {
+            /* 判断当前是否是底部 */
+            let toBottom = false;
+            if (isScrollbarAtBottom()){
+                toBottom = true;
+            }
             let content = getDecode(e.data);
             if (content != "[DONE]") {
                 assistantResponse += content;
@@ -123,6 +128,10 @@ function callBackendAPI() {
                 addCodeCopyButton();
             }
             Prism.highlightAll();
+            /* 滚动到底部 */
+            if (toBottom === true){
+                scrollToBottomQuick();
+            }
         }
     });
     source.stream();
@@ -247,7 +256,7 @@ function combineTextAndHTML(element) {
 }
 
 function imageUrlToMarkdown(url) {
-    return `![picture](${url})`;
+    return `![Alt](${url})`;
 }
 
 function getLoading(){
