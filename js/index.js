@@ -1,5 +1,4 @@
 var md = window.markdownit();
-videoEmbed(md);
 function initialize(){
     // 获取按钮元素
     let sendButton = document.getElementById("sendButton");
