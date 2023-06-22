@@ -76,6 +76,7 @@
     margin-bottom: 5px;
     resize: none;
     overflow: hidden;
+    font-size: 16px;
 }
 
 .bottom-message {
