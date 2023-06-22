@@ -4,8 +4,11 @@ function initialize(){
     let sendButton = document.getElementById("sendButton");
     let pauseButton = document.getElementById("pauseButton");
     let textarea = document.getElementById("inputText");
-    // 添加键盘事件监听器
+    let messageBox = document.getElementById("messageBox");
+    //加载历史内容
+    messageBox.innerHTML = getHTMLFromCookie();
 
+    // 添加键盘事件监听器
     document.addEventListener("keydown", function(event) {
         // 检查按下的键是否是回车键（键码为13）
         if (event.keyCode === 13 && !event.ctrlKey && !event.shiftKey) {
@@ -64,8 +67,8 @@ function callBackendAPI() {
         messageList
     };
 
-    const url = 'http://43.159.130.162:8087/ai/chat_stream';
-    //const url = 'http://localhost:8087/ai/chat_stream';
+    //const url = 'http://43.159.130.162:8087/ai/chat_stream';
+    const url = 'http://localhost:8087/ai/chat_stream';
 
     const headers = {
         'Content-Type': 'application/json',
@@ -142,6 +145,7 @@ function callBackendAPI() {
                 sendButton.style.display = "inline";
                 pauseButton.style.display = "none";
                 addCodeCopyButton();
+                saveHTMLToCookie(messageBox.innerHTML);
             }
             Prism.highlightAll();
             /* 滚动到底部 */
