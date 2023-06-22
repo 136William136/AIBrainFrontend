@@ -3,10 +3,12 @@ function initialize(){
     // 获取按钮元素
     let sendButton = document.getElementById("sendButton");
     let pauseButton = document.getElementById("pauseButton");
+    let textarea = document.getElementById("inputText");
     // 添加键盘事件监听器
+
     document.addEventListener("keydown", function(event) {
         // 检查按下的键是否是回车键（键码为13）
-        if (event.keyCode === 13) {
+        if (event.keyCode === 13 && !event.ctrlKey && !event.shiftKey) {
             // 执行按钮的点击事件
             if (pauseButton.style.display === "inline"){
                 pauseButton.click();
@@ -32,14 +34,27 @@ function initialize(){
         }
 
     });
+
+    textarea.addEventListener("keydown", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            if (event.ctrlKey || event.shiftKey) {
+                if (!textarea.value.endsWith("\n") && textarea.value.trim() != "") {
+                    textarea.value += "\n";
+                    textarea.scrollTop = textarea.scrollHeight;
+                }
+            }
+        }
+    });
 }
 
 initialize();
 
 function callBackendAPI() {
     /* 清空内容，禁用发送按钮 */
-    let userMsg = document.getElementById('inputText').value;
+    let userMsg = document.getElementById('inputText').value.trim();
     document.getElementById('inputText').value = "";
+    document.getElementById('inputText').scrollTop = 0;
     if (userMsg.trim().length == 0){
         return;
     }
@@ -49,8 +64,8 @@ function callBackendAPI() {
         messageList
     };
 
-    //const url = 'http://43.159.130.162:8087/ai/chat_stream';
-    const url = 'http://localhost:8087/ai/chat_stream';
+    const url = 'http://43.159.130.162:8087/ai/chat_stream';
+    //const url = 'http://localhost:8087/ai/chat_stream';
 
     const headers = {
         'Content-Type': 'application/json',

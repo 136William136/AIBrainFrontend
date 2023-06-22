@@ -36,6 +36,7 @@
     justify-content: center;
     align-items: center;
     margin-top: -10px;
+    white-space: pre-wrap;
 }
 
 .bot-message {
@@ -63,27 +64,35 @@
 
 /* 底部输入框 */
 .user-input {
-    width: calc(100% - 150px);
-    height: 33px;
+    width: calc(100% - 200px);
+    max-width: 800px;
+    height: 50px;
     text-decoration: none;
     background-color: rgb(220, 220, 225);
     color: black;
     border: none;
-    margin-left: 5px;
     border-radius: 5px;
     cursor: pointer;
     margin-bottom: 5px;
+    resize: none;
+    overflow: hidden;
 }
 
 .bottom-message {
     width: 100%;
-    margin-bottom: 1px;
+    margin-bottom: 5px;
     opacity: 80%;
     position: fixed;
+    display: flex;
+    justify-content: center;
     bottom: 0;
     overflow-x: auto;
     padding: 2px;
     white-space: nowrap;
+}
+
+.bottom-message > * {
+    margin: 0 10px;
 }
 
 .message-box-container {
@@ -101,15 +110,14 @@
 .bottom-button {
     padding: 10px 10px;
     font-size: 16px;
-    /*text-align: center;*/
-    /*text-decoration: none;*/
     background-color: rgb(220, 220, 225);
     color: black;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 5px;
     width: 40px;
+    margin-bottom: 5px;
+    height: 40px;
 }
 
 .copy-button {
