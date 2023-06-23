@@ -33,9 +33,10 @@ function generateUUID() {
 }
 
 // 将HTML内容存储到cookie中
-function saveHTMLToCookie(html) {
+function saveHTMLToCookie() {
+    let messageBox = document.getElementById("messageBox")
     // 对HTML内容进行编码，确保特殊字符正确存储
-    var encodedHTML = encodeURIComponent(html);
+    var encodedHTML = encodeURIComponent(messageBox.innerHTML);
 
     // 设置cookie，将编码后的HTML内容存储到cookie中
     document.cookie = "html=" + encodedHTML;

@@ -12,7 +12,12 @@ function initialize(){
     let messageBox = document.getElementById("messageBox");
     //加载历史内容
     messageBox.innerHTML = getHTMLFromCookie();
-
+    const deleteButtons = document.querySelectorAll('.user-delete');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            button.parentNode.remove();
+        });
+    });
     // 添加键盘事件监听器
     document.addEventListener("keydown", function(event) {
         // 检查按下的键是否是回车键（键码为13）
@@ -151,9 +156,9 @@ function callBackendAPI() {
                 deleteIcon.classList.add("bot-delete");
                 botMessage.parentNode.appendChild(deleteIcon);
                 deleteIcon.addEventListener('click',function (event){
-                    document.getElementById(botMessage.id).parentNode.remove();
+                    botMessage.parentNode.remove();
                 });
-                saveHTMLToCookie(messageBox.innerHTML);
+                saveHTMLToCookie();
             }
             Prism.highlightAll();
             /* 滚动到底部 */
@@ -171,7 +176,6 @@ function addUserMessage(userMsg){
     /* 用户bubble */
     let bubbleContainer = document.createElement("div");
     bubbleContainer.classList.add("user-bubble-container");
-    bubbleContainer.id = generateRandomId();
     let userIcon = document.createElement("img");
     userIcon.src = "img/robot.png";
     userIcon.classList.add("avatar-icon");
@@ -186,7 +190,7 @@ function addUserMessage(userMsg){
     deleteIcon.classList.add("user-delete");
     bubbleContainer.appendChild(deleteIcon);
     deleteIcon.addEventListener('click',function (event){
-        document.getElementById(bubbleContainer.id).remove();
+        bubbleContainer.remove();
     });
 
     bubbleContainer.appendChild(userMessage);
@@ -207,7 +211,6 @@ function addBotMessage(){
     botMessage.classList.add("message");
     botMessage.classList.add("shadow");
     botMessage.classList.add("bot-message");
-    botMessage.id = generateRandomId();
     bubbleContainer2.appendChild(botIcon);
 
     bubbleContainer2.appendChild(botMessage);
@@ -242,6 +245,7 @@ function uploadFile(event){
                 } else {
                     userMsg.innerText = result.content;
                 }
+                saveHTMLToCookie();
                 // 处理上传成功后的逻辑
             } else {
                 console.error('Error:', xhr.status);
