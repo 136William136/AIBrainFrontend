@@ -1,4 +1,9 @@
 var md = window.markdownit();
+
+//const urlPrefix = "http://localhost:8087";
+const urlPrefix = "http://43.159.130.162:8087";
+
+
 function initialize(){
     // 获取按钮元素
     let sendButton = document.getElementById("sendButton");
@@ -62,12 +67,14 @@ function initialize(){
     getIPAddress()
         .then(function(ipAddress) {
             userInfo.innerText = ipAddress;
-            console.log('访问方的IP地址是：', ipAddress);
         })
         .catch(function(error) {
             userInfo.innerText = "";
-            console.error('获取IP地址失败：', error);
         });
+
+    /* 上传文件 */
+    document.getElementById('file-upload').addEventListener('change', uploadFile);
+
 }
 
 initialize();
@@ -85,9 +92,7 @@ function callBackendAPI() {
     const data = {
         messageList
     };
-
-    const url = 'http://43.159.130.162:8087/ai/chat_stream';
-    //const url = 'http://localhost:8087/ai/chat_stream';
+    const url = urlPrefix + '/ai/chat_stream';
 
     const headers = {
         'Content-Type': 'application/json',
@@ -101,33 +106,9 @@ function callBackendAPI() {
 
     const messageBox = document.getElementById("messageBox");
     /* 用户bubble */
-    let bubbleContainer = document.createElement("div");
-    bubbleContainer.classList.add("user-bubble-container");
-    let userIcon = document.createElement("img");
-    userIcon.src = "img/robot.png";
-    userIcon.classList.add("avatar-icon");
-    let userMessage = document.createElement("div");
-    userMessage.innerHTML = userMsg;
-    userMessage.classList.add("message");
-    userMessage.classList.add("shadow");
-    userMessage.classList.add("user-message");
-    bubbleContainer.appendChild(userMessage);
-    bubbleContainer.appendChild(userIcon);
-    messageBox.appendChild(bubbleContainer);
+    let userMessage = addUserMessage(userMsg);
     /* 助手bubble */
-    let bubbleContainer2 = document.createElement("div");
-    bubbleContainer2.classList.add("bot-bubble-container");
-    let botIcon = document.createElement("img");
-    botIcon.src = "img/chatbot.png";
-    botIcon.classList.add("avatar-icon");
-    let botMessage = document.createElement("div");
-    botMessage.innerHTML = "";
-    botMessage.classList.add("message");
-    botMessage.classList.add("shadow");
-    botMessage.classList.add("bot-message");
-    bubbleContainer2.appendChild(botIcon);
-    bubbleContainer2.appendChild(botMessage);
-    messageBox.appendChild(bubbleContainer2);
+    let botMessage = addBotMessage();
 
     scrollToBottomSmooth();
 
@@ -165,6 +146,14 @@ function callBackendAPI() {
                 pauseButton.style.display = "none";
                 addCodeCopyButton();
                 saveHTMLToCookie(messageBox.innerHTML);
+                /* delete */
+                let deleteIcon = document.createElement("img");
+                deleteIcon.src = "img/delete.png";
+                deleteIcon.classList.add("bot-delete");
+                botMessage.parentNode.appendChild(deleteIcon);
+                deleteIcon.addEventListener('click',function (event){
+                    botMessage.parentNode.remove();
+                });
             }
             Prism.highlightAll();
             /* 滚动到底部 */
@@ -175,7 +164,111 @@ function callBackendAPI() {
     });
     source.stream();
 
+}
 
+function addUserMessage(userMsg){
+    const messageBox = document.getElementById("messageBox");
+    /* 用户bubble */
+    let bubbleContainer = document.createElement("div");
+    bubbleContainer.classList.add("user-bubble-container");
+    let userIcon = document.createElement("img");
+    userIcon.src = "img/robot.png";
+    userIcon.classList.add("avatar-icon");
+    let userMessage = document.createElement("div");
+    userMessage.innerHTML = md.render(userMsg);
+    userMessage.classList.add("message");
+    userMessage.classList.add("shadow");
+    userMessage.classList.add("user-message");
+    /* delete */
+    let deleteIcon = document.createElement("img");
+    deleteIcon.src = "img/delete.png";
+    deleteIcon.classList.add("user-delete");
+    bubbleContainer.appendChild(deleteIcon);
+    deleteIcon.addEventListener('click',function (event){
+        bubbleContainer.remove();
+    });
+
+    bubbleContainer.appendChild(userMessage);
+    bubbleContainer.appendChild(userIcon);
+    messageBox.appendChild(bubbleContainer);
+    return userMessage;
+}
+
+function addBotMessage(){
+    const messageBox = document.getElementById("messageBox");
+    let bubbleContainer2 = document.createElement("div");
+    bubbleContainer2.classList.add("bot-bubble-container");
+    let botIcon = document.createElement("img");
+    botIcon.src = "img/chatbot.png";
+    botIcon.classList.add("avatar-icon");
+    let botMessage = document.createElement("div");
+    botMessage.innerHTML = "";
+    botMessage.classList.add("message");
+    botMessage.classList.add("shadow");
+    botMessage.classList.add("bot-message");
+    bubbleContainer2.appendChild(botIcon);
+
+    bubbleContainer2.appendChild(botMessage);
+    messageBox.appendChild(bubbleContainer2);
+    return botMessage;
+}
+
+function uploadFile(event){
+    let file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', urlPrefix + '/upload/png');
+
+    let userMsg = addUserMessage('');
+// 监听上传进度
+    xhr.upload.addEventListener('progress', function(event) {
+        if (event.lengthComputable) {
+            const percent = Math.floor((event.loaded / event.total) * 100);
+            // 更新进度条显示
+            userMsg.innerText = percent + '%';
+        }
+    });
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const result = JSON.parse(xhr.responseText);
+                if (result.success === true) {
+                    userMsg.innerHTML = md.render("![Alt](" + result.content + ")");
+                } else {
+                    userMsg.innerText = result.content;
+                }
+                // 处理上传成功后的逻辑
+            } else {
+                console.error('Error:', xhr.status);
+            }
+        }
+    };
+
+    xhr.send(formData);
+    document.getElementById('file-upload').value = '';
+    // let file = event.target.files[0];
+    // const formData = new FormData();
+    // formData.append('file', file);
+    //
+    // fetch(urlPrefix + '/upload/png', {
+    //     method: 'POST',
+    //     body: formData
+    // }).then(response => response.json())
+    //     .then(result => {
+    //         if (result.success === true){
+    //             addUserMessage("![Alt]("+result.content + ")");
+    //         }else{
+    //             alert(result.content);
+    //         }
+    //         // 在这里处理上传成功后的逻辑
+    //     })
+    //     .catch(error => {
+    //         console.error('Error:', error);
+    //     });
+    // document.getElementById('file-upload').value = '';
 }
 
 function pauseStream(){
@@ -249,9 +342,10 @@ function getSubMessageList(userMsg){
                 content: text
             });
         } else if (className.includes('user-message')) {
+            let text = combineTextAndHTML(child);
             messageList.push({
                 role: 'user',
-                content: child.innerText
+                content: text
             });
         }
     }
