@@ -176,6 +176,15 @@
     justify-content: center;
 }
 
+.menu-nav {
+    text-align: center;
+    color: rgba(206, 207, 200, 1);
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
 /* */
 .shadow {
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.3), 0 5px 10px 0 rgba(0, 0, 0, 0.2);
