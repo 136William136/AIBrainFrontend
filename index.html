@@ -20,16 +20,21 @@
   <nav class="menu">
     <h3 class="menu-title">AI Chat</h3>
 <!--    <ul >-->
-<!--      <li class="menu-choice"><a href="#" >Room</a></li>-->
+<!--      <li class="menu-choice"><a href="#" >Chat Room</a></li>-->
 <!--    </ul>-->
+    <footer>
+      <p>The information provided is for reference only.</p>
+      <p>Contact us: leexee.net@outlook.com</p>
+    </footer>
   </nav>
 
+  <header id="headerBar">
+    <i id="menuButton" class="menu-button fas fa-bars"></i>
+    <span id="userInfo" class="user-info"></span>
+  </header>
   <div id="contentContainer">
-    <header>
-      <i id="menuButton" class="menu-button fas fa-bars" style="display: none"></i>
-    </header>
     <main>
-    <span class="bottom-message">
+    <span class="bottom-message" id="bottomMessage">
       <button id="clearButton" onclick="clearMessageBox()" class="bottom-button shadow fas fa-trash"></button>
       <textarea rows="4" type="text" id="inputText" placeholder="" class="user-input shadow"></textarea>
       <button id="sendButton" onclick="callBackendAPI()"
@@ -40,7 +45,7 @@
       <div class="message-box-container">
         <div class="bot-bubble-container" style="margin-left: 10px">
           <img src="img/chatbot.png" class="avatar-icon">
-          <div class="message shadow bot-message hello-message">Hello! How can I assist you today?</div>
+          <div class="message shadow bot-message hello-message">Hello! How can I help you today? You can Ask me what I can do.</div>
         </div>
 
         <div id="messageBox" class="message-box"></div>

@@ -26,14 +26,17 @@ function initialize(){
     menuButton.addEventListener('click', function() {
 
         menu.classList.toggle('active'); //在.active和非.active类之间切换
+        let header = document.getElementById('headerBar');
         let content = document.getElementById('contentContainer');
-        let userInput = document.getElementById("inputText");
+        let bottomMessage = document.getElementById("bottomMessage");
         if (menu.classList.contains('active')){
-            content.classList.add('content-container');
-            userInput.style.width = 'calc(100% - 410px)';
+            header.classList.add('header-container-shrink');
+            content.classList.add('content-container-shrink');
+            bottomMessage.classList.add('bottom-message-shrink');
         }else{
-            content.classList.remove('content-container');
-            userInput.style.width = 'calc(100% - 150px)';
+            header.classList.remove('header-container-shrink');
+            content.classList.remove('content-container-shrink');
+            bottomMessage.classList.remove('bottom-message-shrink');
         }
 
     });
@@ -49,6 +52,22 @@ function initialize(){
             }
         }
     });
+
+    if (!isMobileDevice()){
+        menuButton.click();
+    }
+
+    /* 用户身份 */
+    let userInfo = document.getElementById("userInfo");
+    getIPAddress()
+        .then(function(ipAddress) {
+            userInfo.innerText = ipAddress;
+            console.log('访问方的IP地址是：', ipAddress);
+        })
+        .catch(function(error) {
+            userInfo.innerText = "";
+            console.error('获取IP地址失败：', error);
+        });
 }
 
 initialize();
@@ -67,8 +86,8 @@ function callBackendAPI() {
         messageList
     };
 
-    //const url = 'http://43.159.130.162:8087/ai/chat_stream';
-    const url = 'http://localhost:8087/ai/chat_stream';
+    const url = 'http://43.159.130.162:8087/ai/chat_stream';
+    //const url = 'http://localhost:8087/ai/chat_stream';
 
     const headers = {
         'Content-Type': 'application/json',

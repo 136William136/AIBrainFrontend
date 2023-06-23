@@ -20,11 +20,17 @@
     float: left;
     clear: both;
     max-width: 95%;
+    margin-top: 10px;
 }
 
 .avatar-icon {
     width: 40px;
     height: 40px;
+}
+
+.user-info {
+    position: fixed;
+    right: 10px;
 }
 
 .user-message {
@@ -142,6 +148,9 @@
 .menu-title {
     text-align: center;
     color: white;
+    height: 32px;
+    display: flex;
+    justify-content: center;
 }
 
 /* */
@@ -156,8 +165,34 @@
     animation: spin 1s linear infinite;
 }
 
+.bottom-message-shrink {
+    width: calc(100% - 260px);
+}
+
+.header-container-shrink {
+    margin-left: 250px;
+}
+
+.content-container-shrink {
+    margin-left: 260px;
+}
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+
+@media only screen and (max-width: 500px) {
+    /* 在小屏幕设备上应用的样式 */
+
+    .content-container-shrink {
+        margin-left: 0;
+    }
+
+    .bottom-message-shrink {
+        width: 100%;
+    }
+
 }
 /* Add styles here to customize the appearance of your app */
