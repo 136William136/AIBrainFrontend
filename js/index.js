@@ -12,7 +12,7 @@ function initialize(){
     let messageBox = document.getElementById("messageBox");
     //加载历史内容
     messageBox.innerHTML = getHTMLFromCookie();
-    const deleteButtons = document.querySelectorAll('.user-delete');
+    const deleteButtons = document.querySelectorAll('.user-delete, .bot-delete');
     deleteButtons.forEach(button => {
         button.addEventListener('click', () => {
             button.parentNode.remove();
