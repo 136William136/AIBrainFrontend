@@ -1,7 +1,7 @@
 var md = window.markdownit();
 
 //const urlPrefix = "http://localhost:8087";
-const urlPrefix = "http://43.159.130.162:8087";
+const urlPrefix = "https://www.leexee.net/aibrain";
 
 
 function initialize(){
@@ -10,7 +10,7 @@ function initialize(){
     let pauseButton = document.getElementById("pauseButton");
     let textarea = document.getElementById("inputText");
     let messageBox = document.getElementById("messageBox");
-    //加载历史内容
+    //加载历史内容,并给按钮添加回事件
     messageBox.innerHTML = getHTMLFromCookie();
     const deleteButtons = document.querySelectorAll('.user-delete, .bot-delete');
     deleteButtons.forEach(button => {
@@ -18,6 +18,7 @@ function initialize(){
             button.parentNode.remove();
         });
     });
+    addCodeCopyButton();
     // 添加键盘事件监听器
     document.addEventListener("keydown", function(event) {
         // 检查按下的键是否是回车键（键码为13）
