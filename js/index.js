@@ -279,21 +279,24 @@ function addCodeCopyButton(){
     // 获取所有的<pre><code>元素
     var codeElements = document.querySelectorAll('pre code');
     codeElements.forEach(function(element) {
-        if (element.previousElementSibling && element.previousElementSibling.tagName == 'BUTTON'){
-            return;
+        var button;
+        if (element.previousElementSibling && element.previousElementSibling.tagName == 'BUTTON') {
+            button = element.previousElementSibling;
+        }else{
+            // 生成随机ID
+            var randomId = 'code'+generateUUID();
+            // 添加ID属性
+            element.setAttribute('id', randomId);
+            // 创建按钮元素
+            var button = document.createElement('button');
+            button.classList.add('fas');
+            button.classList.add('fa-copy');
+            button.classList.add('copy-button');
+            // 在<pre>标签前插入按钮
+            element.parentNode.insertBefore(button, element);
         }
-        // 生成随机ID
-        var randomId = 'code'+generateUUID();
-        // 添加ID属性
-        element.setAttribute('id', randomId);
-        // 创建按钮元素
-        var button = document.createElement('button');
-        button.classList.add('fas');
-        button.classList.add('fa-copy');
-        button.classList.add('copy-button');
         button.addEventListener('click', function (){
-            let code = document.getElementById(randomId);
-            let codeContent = concatenateText(code);
+            let codeContent = concatenateText(element);
             navigator.clipboard.writeText(codeContent)
                 .then(() => {
                     button.classList.remove('fa-copy');
@@ -307,8 +310,6 @@ function addCodeCopyButton(){
                     console.error('复制失败：', error);
                 });
         });
-        // 在<pre>标签前插入按钮
-        element.parentNode.insertBefore(button, element);
     });
 }
 
