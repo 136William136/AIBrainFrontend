@@ -11,7 +11,7 @@ function initialize(){
     let textarea = document.getElementById("inputText");
     let messageBox = document.getElementById("messageBox");
     //加载历史内容,并给按钮添加回事件
-    messageBox.innerHTML = getHTMLFromCookie();
+    messageBox.innerHTML = getHTMLFromLocalStorage();
     const deleteButtons = document.querySelectorAll('.user-delete, .bot-delete');
     deleteButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -159,7 +159,7 @@ function callBackendAPI() {
                 deleteIcon.addEventListener('click',function (event){
                     botMessage.parentNode.remove();
                 });
-                saveHTMLToCookie();
+                saveHTMLToLocalStorage();
             }
             Prism.highlightAll();
             /* 滚动到底部 */
@@ -246,7 +246,7 @@ function uploadFile(event){
                 } else {
                     userMsg.innerText = result.content;
                 }
-                saveHTMLToCookie();
+                saveHTMLToLocalStorage();
                 // 处理上传成功后的逻辑
             } else {
                 console.error('Error:', xhr.status);
