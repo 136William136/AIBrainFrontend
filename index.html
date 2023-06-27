@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="icon" href="img/chatbot-icon.png" type="image/png">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link rel="stylesheet" type="text/css" href="css/modal.css">
   <link rel="stylesheet" type="text/css" href="css/layout.css">
   <link rel="stylesheet" href="node_modules/prismjs/themes/prism.css">
   <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
@@ -30,7 +31,10 @@
 
   <header id="headerBar">
     <i id="menuButton" class="menu-button fas fa-bars"></i>
-    <span id="userInfo" class="user-info"></span>
+    <span class="user-info">
+      <span id="userInfo"></span>
+      <button class="login-btn" onclick="openLoginModal()"><i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;Login</button>
+    </span>
   </header>
   <div id="contentContainer">
     <main>
@@ -57,6 +61,35 @@
   </div>
 
   <script src="js/index.js"></script>
+
+
+<!--  login 模态框-->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Login / Signup</h3>
+        <button onclick="closeLoginModal()" class="normalButton rightButton">&times;</button>
+      </div>
+      <div id="login" class="tabcontent">
+        <table class="modal-table">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th><input class="login-input" type="email" id="email" name="email" required></th>
+            </tr>
+            <tr>
+              <th>Password</th>
+              <th><input class="login-input" type="password" id="password" name="password" required></th>
+            </tr>
+          </thead>
+        </table>
+        <input type="submit" value="login / signup" class="normalButton centerButton">
+        <div class="centerMsg">Contact Us: leexee.net@outlook.com</div>
+      </div>
+    </div>
+  </div>
+
+
 </body>
 </html>
 
