@@ -52,10 +52,12 @@
 .centerButton {
     display: block;
     margin: 0 auto;
+    height: 20%;
+    width: 50%;
 }
 
-.centerMsg {
-    margin-top: 20px;
+.bottomMsg {
+    margin-top: 10px;
 }
 
 .normalButton:hover {
@@ -69,11 +71,11 @@
 }
 
 .modal-table {
-    height: 70%;
+    height: 60%;
 }
 
 .login-input {
     border-radius: 5px;
     width: 120%;
-    height: 30%;
+    height: 40%;
 }
