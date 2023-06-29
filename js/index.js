@@ -1,8 +1,7 @@
 var md = window.markdownit();
 
-const urlPrefix = "http://localhost:8087";
-//const urlPrefix = "https://www.leexee.net/aibrain";
-//const urlPrefix = "http://43.159.130.162:8087";
+//const urlPrefix = "http://localhost:8087";
+const urlPrefix = "https://www.leexee.net/aibrain";
 
 function initialize(){
     // 获取按钮元素
@@ -67,17 +66,6 @@ function initialize(){
     if (!isMobileDevice()){
         menuButton.click();
     }
-
-    /* 用户身份 */
-    // let userInfo = document.getElementById("userInfo");
-    // getIPAddress()
-    //     .then(function(ipAddress) {
-    //         userInfo.innerText = ipAddress;
-    //     })
-    //     .catch(function(error) {
-    //         userInfo.innerText = "";
-    //     });
-
     /* 上传文件 */
     document.getElementById('file-upload').addEventListener('change', uploadFile);
 
