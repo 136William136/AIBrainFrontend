@@ -71,20 +71,33 @@
         <button onclick="closeLoginModal()" class="normalButton rightButton">&times;</button>
       </div>
       <div id="login" class="tabcontent">
-        <table class="modal-table">
-          <thead>
-            <tr>
-              <th>Email</th>
+        <form class="modal-table">
+           <div>
+             <label for="email">Email:</label>
+             <input class="login-input" type="email" id="email" name="email" required>
+           </div>
+          <div>
+            <label for="password">Password:</label>
+            <input class="login-input" type="password" id="password" name="password" required>
+          </div>
+          <div>
+            <input type="submit" value="login / signup" class="normalButton centerButton" onclick="userLogin()">
+          </div>
+        </form>
+<!--        <table class="modal-table">-->
+<!--          <thead>-->
+<!--            <tr>-->
+<!--              <th>Email</th>-->
 
-              <th><input class="login-input" type="email" id="email" name="email" required></th>
-            </tr>
-            <tr>
-              <th>Password</th>
-              <th><input class="login-input" type="password" id="password" name="password" required></th>
-            </tr>
-          </thead>
-        </table>
-        <input type="submit" value="login / signup" class="normalButton centerButton" onclick="userLogin()">
+<!--              <th><input class="login-input" type="email" id="email" name="email" required></th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <th>Password</th>-->
+<!--              <th><input class="login-input" type="password" id="password" name="password" required></th>-->
+<!--            </tr>-->
+<!--          </thead>-->
+<!--        </table>-->
+<!--        <input type="submit" value="login / signup" class="normalButton centerButton" onclick="userLogin()">-->
         <div class="bottomMsg">Contact us: leexee.net@outlook.com</div>
       </div>
     </div>
