@@ -56,6 +56,36 @@ function getHTMLFromLocalStorage() {
     return "";
 }
 
+function setChatIdToCookie(chatId, username) {
+    // 设置Cookie的过期时间为一个月
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));
+    // 构建Cookie字符串
+    var cookieString = "chatId=" + encodeURIComponent(chatId) + ";";
+    cookieString += "username=" + encodeURIComponent(username) + ";";
+    cookieString += "expires=" + expires.toUTCString() + ";path=/";
+    // 设置Cookie
+    document.cookie = cookieString;
+}
+
+function getChatIdFromCookie() {
+    var token = ""; // 默认设置为空字符串
+
+    var cookies = document.cookie.split(";"); // 将Cookie字符串拆分为数组
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim(); // 去除空格
+
+        // 检查是否以"token="开头
+        if (cookie.indexOf("chatId=") === 0) {
+            token = cookie.substring("chatId=".length, cookie.length); // 获取token值
+            break;
+        }
+    }
+
+    return token;
+}
+
 function isMobileDevice() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }

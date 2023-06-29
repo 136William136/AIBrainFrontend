@@ -1,8 +1,8 @@
 var md = window.markdownit();
 
-//const urlPrefix = "http://localhost:8087";
+const urlPrefix = "http://localhost:8087";
 //const urlPrefix = "https://www.leexee.net/aibrain";
-const urlPrefix = "http://43.159.130.162:8087";
+//const urlPrefix = "http://43.159.130.162:8087";
 
 function initialize(){
     // 获取按钮元素
@@ -99,9 +99,9 @@ function callBackendAPI() {
         messageList
     };
     const url = urlPrefix + '/ai/chat_stream';
-
     const headers = {
         'Content-Type': 'application/json',
+        'token':getChatIdFromCookie(),
         'Access-Control-Allow-Origin':'*'
     };
 
@@ -225,6 +225,7 @@ function uploadFile(event){
 
     const xhr = new XMLHttpRequest();
     xhr.open('POST', urlPrefix + '/upload/png');
+    xhr.setRequestHeader("token", getChatIdFromCookie());
 
     let userMsg = addUserMessage('');
 // 监听上传进度
@@ -310,6 +311,36 @@ function addCodeCopyButton(){
                 });
         });
     });
+}
+
+function userLogin(){
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST",urlPrefix + '/user/login');
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    let username = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+    let requestBody = {
+        username: username,
+        password: password
+    };
+
+    xhr.onload = function (){
+        if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            if (response.success){
+                setChatIdToCookie(response.content, username);
+                let userInfo = document.getElementById("userInfo");
+                userInfo.innerText = username;
+                closeLoginModal();
+            }else{
+                alert(response.content);
+            }
+        } else {
+            console.error("请求失败：" + xhr.status);
+        }
+    }
+    xhr.send(JSON.stringify(requestBody));
 }
 
 function getSubMessageList(userMsg){
