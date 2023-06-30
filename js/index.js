@@ -1,7 +1,7 @@
 var md = window.markdownit();
 
-const urlPrefix = "http://43.159.130.162:8087";
-//const urlPrefix = "https://www.leexee.net/aibrain";
+//const urlPrefix = "http://localhost:8087";
+const urlPrefix = "https://www.leexee.net/aibrain";
 
 function initialize(){
     // 获取按钮元素
@@ -69,6 +69,13 @@ function initialize(){
     /* 上传文件 */
     document.getElementById('file-upload').addEventListener('change', uploadFile);
 
+    /* 显示身份 */
+    let username = getValueFromCookie("username");
+    if (username != ''){
+        let userInfo = document.getElementById("userInfo");
+        userInfo.innerText = username;
+    }
+
 }
 
 initialize();
@@ -89,7 +96,7 @@ function callBackendAPI() {
     const url = urlPrefix + '/ai/chat_stream';
     const headers = {
         'Content-Type': 'application/json',
-        'token':getChatIdFromCookie(),
+        'token':getValueFromCookie("chatId"),
         'Access-Control-Allow-Origin':'*'
     };
 
@@ -213,7 +220,7 @@ function uploadFile(event){
 
     const xhr = new XMLHttpRequest();
     xhr.open('POST', urlPrefix + '/upload/png');
-    xhr.setRequestHeader("token", getChatIdFromCookie());
+    xhr.setRequestHeader("token", getValueFromCookie("chatId"));
 
     let userMsg = addUserMessage('');
 // 监听上传进度
@@ -312,7 +319,6 @@ function userLogin(){
         username: username,
         password: password
     };
-
     xhr.onload = function (){
         if (xhr.status === 200) {
             var response = JSON.parse(xhr.responseText);

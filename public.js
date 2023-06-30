@@ -58,6 +58,7 @@ function getHTMLFromLocalStorage() {
 
 function setChatIdToCookie(chatId, username) {
     // 设置Cookie的过期时间为一个月
+    alert(chatId + " : " + username);
     var expires = new Date();
     expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));
     // 构建Cookie字符串
@@ -68,7 +69,7 @@ function setChatIdToCookie(chatId, username) {
     document.cookie = cookieString;
 }
 
-function getChatIdFromCookie() {
+function getValueFromCookie(key) {
     var token = ""; // 默认设置为空字符串
 
     var cookies = document.cookie.split(";"); // 将Cookie字符串拆分为数组
@@ -77,12 +78,11 @@ function getChatIdFromCookie() {
         var cookie = cookies[i].trim(); // 去除空格
 
         // 检查是否以"token="开头
-        if (cookie.indexOf("chatId=") === 0) {
-            token = cookie.substring("chatId=".length, cookie.length); // 获取token值
+        if (cookie.indexOf(key + "=") === 0) {
+            token = cookie.substring(key + "=".length, cookie.length); // 获取token值
             break;
         }
     }
-
     return token;
 }
 
