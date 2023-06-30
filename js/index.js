@@ -76,13 +76,6 @@ function initialize(){
         userInfo.innerText = username;
     }
 
-    /* 提交行为取消 */
-    let loginButton = document.getElementById("loginButton");
-    loginButton.addEventListener("submit",function (event) {
-        event.preventDefault();
-        userLogin();
-    });
-
 }
 
 initialize();
@@ -316,9 +309,10 @@ function addCodeCopyButton(){
     });
 }
 
-function userLogin(){
+function userLogin(event){
+    event.preventDefault();
     let xhr = new XMLHttpRequest();
-    xhr.open("POST",urlPrefix + '/user/login', false);
+    xhr.open("POST",urlPrefix + '/user/login', true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.setRequestHeader("Access-Control-Allow-Origin","*");
 
