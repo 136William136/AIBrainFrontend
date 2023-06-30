@@ -76,6 +76,13 @@ function initialize(){
         userInfo.innerText = username;
     }
 
+    /* 提交行为取消 */
+    let loginButton = document.getElementById("loginButton");
+    loginButton.addEventListener("submit",function (event) {
+        event.preventDefault();
+        userLogin();
+    });
+
 }
 
 initialize();
@@ -221,6 +228,7 @@ function uploadFile(event){
     const xhr = new XMLHttpRequest();
     xhr.open('POST', urlPrefix + '/upload/png');
     xhr.setRequestHeader("token", getValueFromCookie("chatId"));
+    xhr.setRequestHeader("Access-Control-Allow-Origin","*");
 
     let userMsg = addUserMessage('');
 // 监听上传进度
@@ -310,8 +318,9 @@ function addCodeCopyButton(){
 
 function userLogin(){
     let xhr = new XMLHttpRequest();
-    xhr.open("POST",urlPrefix + '/user/login');
+    xhr.open("POST",urlPrefix + '/user/login', false);
     xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Access-Control-Allow-Origin","*");
 
     let username = document.getElementById("email").value;
     let password = document.getElementById("password").value;
@@ -319,17 +328,19 @@ function userLogin(){
         username: username,
         password: password
     };
-    xhr.onload = function (){
+    xhr.onreadystatechange = function (){
         if (xhr.status === 200) {
-            var response = JSON.parse(xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
             if (response.success){
-                setChatIdToCookie(response.content, username);
+                setCookie("chatId",response.content, 30);
+                setCookie("username",username, 30);
                 let userInfo = document.getElementById("userInfo");
                 userInfo.innerText = username;
                 closeLoginModal();
             }else{
                 alert(response.content);
             }
+
         } else {
             console.error("请求失败：" + xhr.status);
         }
