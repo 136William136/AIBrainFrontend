@@ -56,39 +56,34 @@ function getHTMLFromLocalStorage() {
     return "";
 }
 
-function setChatIdToCookie(chatId, username) {
-    // 设置Cookie的过期时间为一个月
-    var expires = new Date();
-    expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000));
-    // 构建Cookie字符串
-    var cookieString = "chatId=" + encodeURIComponent(chatId) + ";";
-    cookieString += "username=" + encodeURIComponent(username) + ";";
-    cookieString += "expires=" + expires.toUTCString() + ";path=/";
-    // 设置Cookie
-    document.cookie = cookieString;
-}
 
 function setCookie(cookieName, cookieValue, expirationDays) {
-    let d = new Date();
-    d.setTime(d.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
-    let expires = "expires=" + d.toUTCString();
-    document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/";
+    localStorage.setItem(cookieName, cookieValue);
+    // let d = new Date();
+    // d.setTime(d.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
+    // let expires = "expires=" + d.toUTCString();
+    // document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/";
 }
 
 function getValueFromCookie(cookieName) {
-    let name = cookieName + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let cookieArray = decodedCookie.split(';');
-    for(let i = 0; i < cookieArray.length; i++) {
-        let cookie = cookieArray[i];
-        while (cookie.charAt(0) == ' ') {
-            cookie = cookie.substring(1);
-        }
-        if (cookie.indexOf(name) == 0) {
-            return cookie.substring(name.length, cookie.length);
-        }
+    var encodedHTML = localStorage.getItem(cookieName);
+    if (encodedHTML){
+        return encodedHTML;
     }
     return "";
+    // let name = cookieName + "=";
+    // let decodedCookie = decodeURIComponent(document.cookie);
+    // let cookieArray = decodedCookie.split(';');
+    // for(let i = 0; i < cookieArray.length; i++) {
+    //     let cookie = cookieArray[i];
+    //     while (cookie.charAt(0) == ' ') {
+    //         cookie = cookie.substring(1);
+    //     }
+    //     if (cookie.indexOf(name) == 0) {
+    //         return cookie.substring(name.length, cookie.length);
+    //     }
+    // }
+    // return "";
 }
 
 function isMobileDevice() {
