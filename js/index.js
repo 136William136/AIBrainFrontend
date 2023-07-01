@@ -1,7 +1,7 @@
 var md = window.markdownit();
 
-//const urlPrefix = "http://localhost:8087";
-const urlPrefix = "https://www.leexee.net/aibrain";
+const urlPrefix = "http://localhost:8087";
+//const urlPrefix = "https://www.leexee.net/aibrain";
 
 function initialize(){
     // 获取按钮元素
@@ -69,12 +69,9 @@ function initialize(){
     /* 上传文件 */
     document.getElementById('file-upload').addEventListener('change', uploadFile);
 
-    /* 显示身份 */
-    let username = getValueFromCookie("username");
-    if (username != ''){
-        let userInfo = document.getElementById("userInfo");
-        userInfo.innerText = username;
-    }
+    /* 用户信息小菜单 */
+    userInfo()
+
 
 }
 
@@ -128,7 +125,6 @@ function callBackendAPI() {
     let loading = getLoading();
     botMessage.append(loading);
 
-
     source.addEventListener('message', function(e) {
         if (!paused) {
             /* 判断当前是否是底部 */
@@ -137,11 +133,13 @@ function callBackendAPI() {
                 toBottom = true;
             }
             let content = getDecode(e.data);
-            if (content != "[DONE]") {
+            if (!content.startsWith("[DONE]")) {
                 assistantResponse += content;
                 let convert = md.render(assistantResponse);
                 botMessage.innerHTML = convert;
             }else{
+                let quota = content.replace("[DONE]","");
+                updateQuotaLevel(quota)
                 sendButton.style.display = "inline";
                 pauseButton.style.display = "none";
                 addCodeCopyButton();
@@ -328,9 +326,8 @@ function userLogin(event){
             if (response.success){
                 setCookie("chatId",response.content, 30);
                 setCookie("username",username, 30);
-                let userInfo = document.getElementById("userInfo");
-                userInfo.innerText = username;
                 closeLoginModal();
+                location.reload();
             }else{
                 alert(response.content);
             }
@@ -340,6 +337,53 @@ function userLogin(event){
         }
     }
     xhr.send(JSON.stringify(requestBody));
+}
+
+function userInfo(){
+    let username = getValueFromCookie("username");
+    let userLogo = document.getElementById("userLogo");
+    if (username != ''){
+        let userNameDiv = document.getElementById("userName");
+        userNameDiv.innerText = username;
+        userLogo.setAttribute('title',username);
+        let requestBody = {
+            username: username,
+        };
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST",urlPrefix + '/user/userInfo', true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Access-Control-Allow-Origin","*");
+        xhr.onreadystatechange = function (){
+            if (xhr.status === 200) {
+                if (xhr.responseText === ''){
+                    return;
+                }
+                let response = JSON.parse(xhr.responseText);
+                if (response.success){
+                    let quota = response.content;
+                    updateQuotaLevel(quota);
+                }else{
+                    alert(response.content);
+                }
+
+            } else {
+                console.error("请求失败：" + xhr.status);
+            }
+        }
+        xhr.send(JSON.stringify(requestBody));
+    }
+    let popup = document.getElementById("popup");
+    userLogo.addEventListener("click", function(event) {
+        event.stopPropagation();
+        popup.style.display = "block";
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!popup.contains(event.target)) {
+            popup.style.display = 'none';
+        }
+    });
+
 }
 
 function getSubMessageList(userMsg){

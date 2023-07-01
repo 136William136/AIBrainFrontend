@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="icon" href="img/chatbot-icon.png" type="image/png">
+  <link rel="stylesheet" type="text/css" href="css/battery.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
   <link rel="stylesheet" type="text/css" href="css/modal.css">
   <link rel="stylesheet" type="text/css" href="css/layout.css">
@@ -32,8 +33,13 @@
   <header id="headerBar">
     <i id="menuButton" class="menu-button fas fa-bars"></i>
     <span class="user-info">
-      <span id="userInfo"></span>
-      <button class="login-btn" onclick="openLoginModal()"><i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;Login</button>
+      <div id="battery" class="battery shadow-box"><div id="quota-level" class="battery-level"></div></div>
+      <span id="userLogo" class="user-logo"><i class="fas fa-user-circle"></i></span>
+      <div id="popup" class="popup" onclick="event.stopPropagation();">
+         <div id="userName" style="font-size: 14px"></div>
+         <button class="login-btn" onclick="openLoginModal()"><i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;Login</button>
+      </div>
+<!--      <button class="login-btn" onclick="openLoginModal()"><i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;Login</button>-->
     </span>
   </header>
   <div id="contentContainer">

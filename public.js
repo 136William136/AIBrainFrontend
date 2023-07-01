@@ -90,3 +90,18 @@ function isMobileDevice() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
+function updateQuotaLevel(level){
+    var quota = document.getElementById('quota-level');
+    quota.classList.remove('alert');
+    quota.classList.remove('warn');
+    if (level <= 10){
+        quota.classList.add('alert');
+    }else if (level <= 30){
+        quota.classList.add('warn');
+    }
+    quota.setAttribute('style','height:'+level+'%');
+    var battery = document.getElementById('battery');
+    if (battery) {
+        battery.setAttribute('title','剩余额度'+level+'%')
+    }
+}

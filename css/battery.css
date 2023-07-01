@@ -1,0 +1,26 @@
+.battery {
+    border: 3px solid #333;
+    display: inline-block;
+    width: 10px;
+    height: 25px;
+    padding: 2px;
+    margin-right: 10px;
+    border-radius: 4px;
+    position: relative;
+    /*margin: 15px 0;*/
+}
+
+.battery-level {
+    background: rgb(71, 149, 110);
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+}
+.warn {
+    background-color: #EFAF13;
+}
+
+.alert {
+     background-color: #e81309;
+}

@@ -29,8 +29,30 @@
 }
 
 .user-info {
+    display: inline-block;
     position: fixed;
     right: 10px;
+}
+
+.user-logo {
+    display: inline;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 200%;
+}
+
+.popup {
+    position: absolute;
+    top: 50px;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 70px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    padding: 10px;
+    /*text-align: center;*/
+    display: none;
 }
 
 .login-btn {
@@ -39,6 +61,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 .user-message {
