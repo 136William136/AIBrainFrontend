@@ -1,7 +1,7 @@
 var md = window.markdownit();
 
-const urlPrefix = "http://localhost:8087";
-//const urlPrefix = "https://www.leexee.net/aibrain";
+//const urlPrefix = "http://localhost:8087";
+const urlPrefix = "https://www.leexee.net/aibrain";
 
 function initialize(){
     // 获取按钮元素
@@ -124,6 +124,14 @@ function callBackendAPI() {
 
     let loading = getLoading();
     botMessage.append(loading);
+    /* delete */
+    let deleteIcon = document.createElement("img");
+    deleteIcon.src = "img/delete.png";
+    deleteIcon.classList.add("bot-delete");
+    botMessage.parentNode.appendChild(deleteIcon);
+    deleteIcon.addEventListener('click',function (event){
+        botMessage.parentNode.remove();
+    });
 
     source.addEventListener('message', function(e) {
         if (!paused) {
@@ -143,14 +151,6 @@ function callBackendAPI() {
                 sendButton.style.display = "inline";
                 pauseButton.style.display = "none";
                 addCodeCopyButton();
-                /* delete */
-                let deleteIcon = document.createElement("img");
-                deleteIcon.src = "img/delete.png";
-                deleteIcon.classList.add("bot-delete");
-                botMessage.parentNode.appendChild(deleteIcon);
-                deleteIcon.addEventListener('click',function (event){
-                    botMessage.parentNode.remove();
-                });
                 saveHTMLToLocalStorage();
             }
             Prism.highlightAll();

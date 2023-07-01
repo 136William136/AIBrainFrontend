@@ -94,6 +94,7 @@
     position: relative;
     top:-10px;
     right:-8px;
+    opacity: 0.6;
 }
 
 .bot-delete{
@@ -103,6 +104,7 @@
     position: relative;
     top:-17px;
     right:7px;
+    opacity: 0.6;
 }
 
 .hello-message {

@@ -102,6 +102,6 @@ function updateQuotaLevel(level){
     quota.setAttribute('style','height:'+level+'%');
     var battery = document.getElementById('battery');
     if (battery) {
-        battery.setAttribute('title','剩余额度'+level+'%')
+        battery.setAttribute('title',level+'%')
     }
 }
