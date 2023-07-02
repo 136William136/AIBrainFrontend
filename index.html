@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="icon" href="img/chatbot-icon.png" type="image/png">
+  <link rel="stylesheet" type="text/css" href="css/theme.css">
   <link rel="stylesheet" type="text/css" href="css/battery.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
   <link rel="stylesheet" type="text/css" href="css/modal.css">
@@ -21,9 +22,6 @@
 
   <nav class="menu">
     <h3 class="menu-title">AI Chat</h3>
-<!--    <ul >-->
-<!--      <li class="menu-choice"><a href="#" >Chat Room</a></li>-->
-<!--    </ul>-->
     <footer>
       <p class="menu-nav">The information provided is for reference only.</p>
       <p class="menu-nav">Contact us: leexee.net@outlook.com</p>
@@ -38,8 +36,8 @@
       <div id="popup" class="popup" onclick="event.stopPropagation();">
          <div id="userName" style="font-size: 14px"></div>
          <button class="login-btn" onclick="openLoginModal()"><i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;Login</button>
+         <button onclick="changeTheme()"><i class="fas fa-moon"></i></button>
       </div>
-<!--      <button class="login-btn" onclick="openLoginModal()"><i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;Login</button>-->
     </span>
   </header>
   <div id="contentContainer">
@@ -58,7 +56,7 @@
       <div class="message-box-container">
         <div class="bot-bubble-container" style="margin-left: 10px">
           <img src="img/chatbot.png" class="avatar-icon">
-          <div class="message shadow bot-message hello-message">Hello! How can I help you today? You can Ask me what I can do.</div>
+          <div class="message shadow bot-message hello-message">Hello! How can I help you today? You can ask me what I can do.</div>
         </div>
 
         <div id="messageBox" class="message-box"></div>

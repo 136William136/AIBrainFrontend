@@ -56,6 +56,29 @@ function getHTMLFromLocalStorage() {
     return "";
 }
 
+function changeTheme(){
+    let theme = getValueFromCookie("theme");
+    if (theme === '' || theme === 'light'){
+        setCookie("theme","dark");
+        document.getElementById("headerBar").classList.add("dark-theme");
+        document.body.classList.add("dark-theme");
+    }else{
+        setCookie("theme","light");
+        document.getElementById("headerBar").classList.remove("dark-theme");
+        document.body.classList.remove("dark-theme");
+    }
+}
+
+function checkTheme(){
+    let theme = getValueFromCookie("theme");
+    if (theme === '' || theme === 'light'){
+        document.getElementById("headerBar").classList.remove("dark-theme");
+        document.body.classList.remove("dark-theme");
+    }else{
+        document.getElementById("headerBar").classList.add("dark-theme");
+        document.body.classList.add("dark-theme");
+    }
+}
 
 function setCookie(cookieName, cookieValue, expirationDays) {
     localStorage.setItem(cookieName, cookieValue);

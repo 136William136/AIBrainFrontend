@@ -72,6 +72,8 @@ function initialize(){
     /* 用户信息小菜单 */
     userInfo()
 
+    /* 主题 */
+    checkTheme();
 
 }
 
@@ -483,7 +485,9 @@ function getLoading(){
     loading.classList.add("fa-spin");
     return loading;
 }
-
+function goToTaobao(){
+    window.location.href = "https://item.taobao.com/item.htm?ft=t&id=720381649351";
+}
 // 打开模态框
 function openLoginModal() {
     document.getElementById("loginModal").style.display = "block";
