@@ -228,6 +228,11 @@
     height: 120px;
 }
 
+.features-list {
+    margin-left: 40px;
+    margin-top: -100px;
+}
+
 /* */
 .shadow {
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.3), 0 5px 10px 0 rgba(0, 0, 0, 0.2);
@@ -287,12 +292,22 @@
 @media only screen and (max-width: 500px) {
     /* 在小屏幕设备上应用的样式 */
 
+    .header-container-shrink {
+        margin-left: 0;
+        z-index: 1;
+    }
+
     .content-container-shrink {
         margin-left: 0;
     }
 
     .bottom-message-shrink {
         width: 100%;
+    }
+
+    img {
+        max-width: 512px;
+        max-height: 512px;
     }
 
 }

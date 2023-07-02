@@ -1,7 +1,7 @@
 var md = window.markdownit();
 
-//const urlPrefix = "http://localhost:8087";
-const urlPrefix = "https://www.leexee.net/aibrain";
+const urlPrefix = "http://localhost:8087";
+//const urlPrefix = "https://www.leexee.net/aibrain";
 
 function initialize(){
     // 获取按钮元素
@@ -111,6 +111,12 @@ function initialize(){
         }
     });
 
+    /* 显示视频 */
+    const botMessages = document.querySelectorAll(".bot-message");
+    botMessages.forEach((element) => {
+        displayYoutubeVideos(element);
+    });
+
 }
 
 initialize();
@@ -189,6 +195,7 @@ function callBackendAPI() {
                 sendButton.style.display = "inline";
                 pauseButton.style.display = "none";
                 addCodeCopyButton();
+                displayYoutubeVideos(botMessage);
                 saveHTMLToLocalStorage();
             }
             Prism.highlightAll();
