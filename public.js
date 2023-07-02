@@ -60,12 +60,16 @@ function changeTheme(){
     let theme = getValueFromCookie("theme");
     if (theme === '' || theme === 'light'){
         setCookie("theme","dark");
+        document.getElementById("headerBar").classList.remove("light-theme");
+        document.body.classList.remove("light-theme");
         document.getElementById("headerBar").classList.add("dark-theme");
         document.body.classList.add("dark-theme");
     }else{
         setCookie("theme","light");
         document.getElementById("headerBar").classList.remove("dark-theme");
         document.body.classList.remove("dark-theme");
+        document.getElementById("headerBar").classList.add("light-theme");
+        document.body.classList.add("light-theme");
     }
 }
 

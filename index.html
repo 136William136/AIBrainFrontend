@@ -30,8 +30,12 @@
         <br>3. Generate images
         <br>4. Send emails
       </p>
-      <p class="menu-nav">Contact us: leexee.net@outlook.com</p>
+      <p class="menu-nav">Contact us:<br>leexee.net@outlook.com</p>
       <p class="menu-nav"></p>
+      <p id="settingIcon" class="setting-icon"><i class="fas fa-cog"></i></p>
+      <div id="settingList" class="setting-list">
+        Theme <button onclick="changeTheme()"><i class="fas fa-moon"></i></button>
+      </div>
     </footer>
   </nav>
 
@@ -43,12 +47,12 @@
       <div id="popup" class="popup" onclick="event.stopPropagation();">
          <div id="userName" style="font-size: 14px"></div>
          <button class="login-btn" onclick="openLoginModal()"><i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;Login</button>
-         <button onclick="changeTheme()"><i class="fas fa-moon"></i></button>
       </div>
     </span>
   </header>
   <div id="contentContainer">
     <main>
+
     <span class="bottom-message" id="bottomMessage">
       <button id="clearButton" onclick="clearMessageBox()" class="bottom-button shadow fas fa-trash"></button>
       <textarea rows="4" type="text" id="inputText" placeholder="" class="user-input shadow"></textarea>
@@ -63,7 +67,7 @@
       <div class="message-box-container">
         <div class="bot-bubble-container" style="margin-left: 10px">
           <img src="img/chatbot.png" class="avatar-icon">
-          <div class="message shadow bot-message hello-message">Hello! How can I help you today? You can ask me what I can do.</div>
+          <div class="message shadow bot-message hello-message">Hello! How can I help you today?</div>
         </div>
 
         <div id="messageBox" class="message-box"></div>

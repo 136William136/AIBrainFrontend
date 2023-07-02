@@ -33,8 +33,8 @@ function initialize(){
     const menuButton = document.getElementById('menuButton');
     const menu = document.querySelector('.menu');
 
-    menuButton.addEventListener('click', function() {
-
+    menuButton.addEventListener('click', function(event) {
+        event.stopPropagation();
         menu.classList.toggle('active'); //在.active和非.active类之间切换
         let header = document.getElementById('headerBar');
         let content = document.getElementById('contentContainer');
@@ -62,9 +62,32 @@ function initialize(){
             }
         }
     });
+    const list = document.getElementById('inputList');
+    textarea.addEventListener('input', function(event) {
+        const value = event.target.value.trim();
+        if (value === '/') {
+            list.style.display = 'block';
+        } else {
+            list.style.display = 'none';
+        }
+    });
+    const options = document.querySelectorAll('#inputList li');
+    options.forEach(option => {
+        option.addEventListener('click', function(event) {
+            const selectedText = event.target.innerText;
+            textarea.value += selectedText;
+            list.style.display = 'none';
+        });
+    });
 
     if (!isMobileDevice()){
         menuButton.click();
+    }else{
+        document.addEventListener('click', function(event) {
+            if (!menu.contains(event.target) && menu.classList.contains("active")) {
+                menuButton.click();
+            }
+        });
     }
     /* 上传文件 */
     document.getElementById('file-upload').addEventListener('change', uploadFile);
@@ -74,6 +97,19 @@ function initialize(){
 
     /* 主题 */
     checkTheme();
+
+    /* 设置按钮 */
+    let settingIcon = document.getElementById("settingIcon");
+    let settingList = document.getElementById("settingList");
+    settingIcon.addEventListener("click", function (event){
+        event.stopPropagation();
+        settingList.style.display = "block";
+    });
+    document.addEventListener('click', function(event) {
+        if (!settingList.contains(event.target)) {
+            settingList.style.display = 'none';
+        }
+    });
 
 }
 
