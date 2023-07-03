@@ -170,7 +170,7 @@ function displayYoutubeVideos(element){
 function displayBilibiliVideos(element){
     // 检查元素的内容是否包含指定的URL
     let url = '';
-    let bilibiliVideoPrefix = "file://player.bilibili.com/player.html?bvid=";
+    let bilibiliVideoPrefix = "https://player.bilibili.com/player.html?bvid=";
     if (element.href && element.href.includes(bilibiliVideoPrefix)){
         url = element.href;
     }else if (element.src && element.src.includes(bilibiliVideoPrefix)) {
@@ -180,7 +180,7 @@ function displayBilibiliVideos(element){
         const videoId = url.replaceAll(bilibiliVideoPrefix,"");
         if (videoId){
             let iframe = document.createElement("div");
-            iframe.innerHTML = '<iframe src="//player.bilibili.com/player.html?bvid='+videoId+'" height="1024" width="512"></iframe>';
+            iframe.innerHTML = '<iframe src="https://player.bilibili.com/player.html?bvid='+videoId+'" height="1024" width="512"></iframe>';
             element.parentNode.appendChild(iframe);
             element.parentNode.removeChild(element);
         }
