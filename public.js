@@ -139,13 +139,18 @@ function displayYoutubeVideos(parentElement){
 
 // 遍历子元素
     for (var i = 0; i < childElements.length; i++) {
-        var element = childElements[i];
+        let element = childElements[i];
         // 检查元素的内容是否包含指定的URL
-        if (element.src && element.src.includes("https://www.youtube.com/embed/")) {
+        let url = '';
+        if (element.href && element.href.includes("https://www.youtube.com/embed/")){
+            url = element.href;
+        }else if (element.src && element.src.includes("https://www.youtube.com/embed/")) {
+            url = element.src;
+        }
+        if (url != ''){
             const regex = /embed\/([^"]+)/;
-            const match = element.src.match(regex);
+            const match = url.match(regex);
             const videoId = match[1];
-            console.log(videoId);
             if (videoId){
                 let iframe = document.createElement("div");
                 iframe.innerHTML = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + videoId + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>';
