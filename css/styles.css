@@ -310,5 +310,10 @@
         max-height: 512px;
     }
 
+    iframe {
+        max-height: 512px;
+        max-width: 300px;
+    }
+
 }
 /* Add styles here to customize the appearance of your app */

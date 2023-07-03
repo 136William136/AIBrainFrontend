@@ -133,30 +133,56 @@ function updateQuotaLevel(level){
     }
 }
 
-function displayYoutubeVideos(parentElement){
+function displayVideos(parentElement){
 // 获取所有子元素
     var childElements = parentElement.querySelectorAll("*");
 
 // 遍历子元素
     for (var i = 0; i < childElements.length; i++) {
+
         let element = childElements[i];
-        // 检查元素的内容是否包含指定的URL
-        let url = '';
-        if (element.href && element.href.includes("https://www.youtube.com/embed/")){
-            url = element.href;
-        }else if (element.src && element.src.includes("https://www.youtube.com/embed/")) {
-            url = element.src;
+        displayYoutubeVideos(element);
+        displayBilibiliVideos(element);
+    }
+}
+
+function displayYoutubeVideos(element){
+    // 检查元素的内容是否包含指定的URL
+    let url = '';
+    if (element.href && element.href.includes("https://www.youtube.com/embed/")){
+        url = element.href;
+    }else if (element.src && element.src.includes("https://www.youtube.com/embed/")) {
+        url = element.src;
+    }
+    if (url != ''){
+        const regex = /embed\/([^"]+)/;
+        const match = url.match(regex);
+        const videoId = match[1];
+        if (videoId){
+            let iframe = document.createElement("div");
+            iframe.innerHTML = '<iframe width="900" height="500" src="https://www.youtube.com/embed/' + videoId + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>';
+            element.parentNode.appendChild(iframe);
+            element.parentNode.removeChild(element);
         }
-        if (url != ''){
-            const regex = /embed\/([^"]+)/;
-            const match = url.match(regex);
-            const videoId = match[1];
-            if (videoId){
-                let iframe = document.createElement("div");
-                iframe.innerHTML = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + videoId + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>';
-                element.parentNode.appendChild(iframe);
-                element.parentNode.removeChild(element);
-            }
+    }
+}
+
+function displayBilibiliVideos(element){
+    // 检查元素的内容是否包含指定的URL
+    let url = '';
+    let bilibiliVideoPrefix = "file://player.bilibili.com/player.html?bvid=";
+    if (element.href && element.href.includes(bilibiliVideoPrefix)){
+        url = element.href;
+    }else if (element.src && element.src.includes(bilibiliVideoPrefix)) {
+        url = element.src;
+    }
+    if (url != ''){
+        const videoId = url.replaceAll(bilibiliVideoPrefix,"");
+        if (videoId){
+            let iframe = document.createElement("div");
+            iframe.innerHTML = '<iframe src="//player.bilibili.com/player.html?bvid='+videoId+'" height="1024" width="512"></iframe>';
+            element.parentNode.appendChild(iframe);
+            element.parentNode.removeChild(element);
         }
     }
 }
