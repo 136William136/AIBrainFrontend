@@ -160,7 +160,7 @@ function displayYoutubeVideos(element){
         const videoId = match[1];
         if (videoId){
             let iframe = document.createElement("div");
-            iframe.innerHTML = '<iframe width="900" height="500" src="https://www.youtube.com/embed/' + videoId + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>';
+            iframe.innerHTML = '<iframe width="800" height="600" src="https://www.youtube.com/embed/' + videoId + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>';
             element.parentNode.appendChild(iframe);
             element.parentNode.removeChild(element);
         }
@@ -180,7 +180,7 @@ function displayBilibiliVideos(element){
         const videoId = url.replaceAll(bilibiliVideoPrefix,"");
         if (videoId){
             let iframe = document.createElement("div");
-            iframe.innerHTML = '<iframe src="https://player.bilibili.com/player.html?bvid='+videoId+'" height="900" width="500"></iframe>';
+            iframe.innerHTML = '<iframe src="https://player.bilibili.com/player.html?bvid='+videoId+'" height="600" width="800"></iframe>';
             element.parentNode.appendChild(iframe);
             element.parentNode.removeChild(element);
         }
