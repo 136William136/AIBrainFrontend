@@ -180,7 +180,7 @@ function displayBilibiliVideos(element){
         const videoId = url.replaceAll(bilibiliVideoPrefix,"");
         if (videoId){
             let iframe = document.createElement("div");
-            iframe.innerHTML = '<iframe src="https://player.bilibili.com/player.html?bvid='+videoId+'" height="1024" width="512"></iframe>';
+            iframe.innerHTML = '<iframe src="https://player.bilibili.com/player.html?bvid='+videoId+'" height="900" width="500"></iframe>';
             element.parentNode.appendChild(iframe);
             element.parentNode.removeChild(element);
         }
