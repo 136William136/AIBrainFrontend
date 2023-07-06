@@ -286,6 +286,23 @@
     margin-top: 30px;
 }
 
+.plugin-container {
+    display: inline-block;
+    position: relative;
+    right: 40px;
+    bottom: 5px;
+}
+
+.plugin-button {
+    border-radius: 30px;
+    /*border: 2px solid gray;*/
+}
+
+.checkbox + label {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+}
 
 @keyframes spin {
     0% { transform: rotate(0deg); }

@@ -1,12 +1,14 @@
 .battery {
     border: 3px solid #333;
-    display: inline-block;
+    display: inline;
     width: 10px;
     height: 25px;
     padding: 2px;
     margin-right: 10px;
     border-radius: 4px;
-    position: relative;
+    position: fixed;
+    right: 50px;
+    margin-top: 5px;
     /*margin: 15px 0;*/
 }
 

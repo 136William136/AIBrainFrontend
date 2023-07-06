@@ -30,7 +30,8 @@
           <br>2. &nbsp;Search on the Internet
           <br>3. &nbsp;Generate images
           <br>4. &nbsp;Send emails
-          <br>5. &nbsp;Search videos
+          <br>5. &nbsp;Analyze urls
+          <br>6. &nbsp;Search videos
         </div>
       </p>
       <p class="menu-nav">Contact us:<br>leexee.net@outlook.com<br><br><br><div id="shopping" class="shopping-cart"><i class="fas fa-shopping-cart"></i></div></p>
@@ -45,6 +46,9 @@
   <header id="headerBar">
     <i id="menuButton" class="menu-button fas fa-bars"></i>
     <span class="user-info">
+      <span class="plugin-container">
+        <button onclick="openPluginModal()" class="bottom-button shadow fas fa-toolbox plugin-button"></button>
+      </span>
       <div id="battery" class="battery shadow-box"><div id="quota-level" class="battery-level"></div></div>
       <span id="userLogo" class="user-logo"><i class="fas fa-user-circle"></i></span>
       <div id="popup" class="popup" onclick="event.stopPropagation();">
@@ -55,7 +59,6 @@
   </header>
   <div id="contentContainer">
     <main>
-
     <span class="bottom-message" id="bottomMessage">
       <button id="clearButton" onclick="clearMessageBox()" class="bottom-button shadow fas fa-trash"></button>
       <textarea rows="4" type="text" id="inputText" placeholder="" class="user-input shadow"></textarea>
@@ -103,6 +106,41 @@
             <button type="submit" class="normalButton centerButton" onclick="userLogin(event)">login / signup</button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!--  plugin 模态框-->
+  <div id="pluginModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title"> <i class="fas fa-toolbox modal-icon"></i>&nbsp;&nbsp;Extra Features</span>
+        <button onclick="closePluginModal()" class="normalButton rightButton">&times;</button>
+      </div>
+      <div id="plugin" class="tabcontent">
+        <div>
+          <input onchange="setPlugin()" class="checkbox" type="checkbox"
+                 id="generate_picture" name="generate_picture_checkbox" value="generate_picture">
+          <label for="generate_picture">Generate pictures</label>
+        </div>
+        <div>
+          <input onchange="setPlugin()" class="checkbox"type="checkbox"
+                 id="search_on_internet_1" name="search_on_internet_1_checkbox" value="search_on_internet_1">
+          <label for="search_on_internet_1">Search on the internet</label>
+        </div>
+        <div>
+          <input onchange="setPlugin()" class="checkbox"type="checkbox"
+                 id="search_on_internet_2" name="search_on_internet_2_checkbox" value="search_on_internet_2">
+          <label for="search_on_internet_2">Analyze urls</label>
+        </div>
+        <div>
+          <input onchange="setPlugin()" class="checkbox" type="checkbox"
+                 id="send_mail" name="send_mail_checkbox" value="send_mail">
+          <label for="send_mail">Send Emails</label>
+        </div>
+      </div>
+      <div>
+        <button class="normalButton pluginSubmitButton" onclick="closePluginModal()">Save</button>
       </div>
     </div>
   </div>

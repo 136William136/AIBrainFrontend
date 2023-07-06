@@ -17,7 +17,7 @@
 }
 
 .modal-content {
-    background-color: rgba(227, 244, 255, 1);
+    /*background-color: rgba(227, 244, 255, 1);*/
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
@@ -26,6 +26,9 @@
     display: flex;
     flex-direction: column;
     border-radius: 20px;
+
+    color: floralwhite;
+    background-color: rgba(44, 51, 61, 1);
 }
 
 .normalButton {
@@ -47,6 +50,14 @@
 .rightButton {
     height: 35px;
     margin-left: auto;
+}
+
+.pluginSubmitButton {
+    display: block;
+    margin: 0 auto;
+    margin-top: 30px;
+    height: 60%;
+    width: 50%;
 }
 
 .centerButton {
@@ -74,7 +85,8 @@
 .modal-title {
     font-size: 17px;
     margin-left: 70px;
-    color: rgba(34, 56, 87, 1);
+    /*color: rgba(34, 56, 87, 1);*/
+    color: floralwhite;
 }
 
 .login-input {

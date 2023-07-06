@@ -62,23 +62,6 @@ function initialize(){
             }
         }
     });
-    const list = document.getElementById('inputList');
-    textarea.addEventListener('input', function(event) {
-        const value = event.target.value.trim();
-        if (value === '/') {
-            list.style.display = 'block';
-        } else {
-            list.style.display = 'none';
-        }
-    });
-    const options = document.querySelectorAll('#inputList li');
-    options.forEach(option => {
-        option.addEventListener('click', function(event) {
-            const selectedText = event.target.innerText;
-            textarea.value += selectedText;
-            list.style.display = 'none';
-        });
-    });
 
     if (!isMobileDevice()){
         menuButton.click();
@@ -137,7 +120,8 @@ function callBackendAPI() {
     /* 截取一部分message list*/
     let messageList = getSubMessageList(userMsg);
     const data = {
-        messageList
+        messageList,
+        plugins: getPlugins()
     };
     const url = urlPrefix + '/ai/chat_stream';
     const headers = {
@@ -377,6 +361,7 @@ function userLogin(event){
                 setCookie("chatId",response.content, 30);
                 setCookie("username",username, 30);
                 closeLoginModal();
+                setCookie("plugin",["search_on_internet_1","search_on_internet_2","generate_picture"])
                 location.reload();
             }else{
                 alert(response.content);
@@ -533,9 +518,41 @@ function getLoading(){
     loading.classList.add("fa-spin");
     return loading;
 }
-function goToTaobao(){
-    window.location.href = "https://item.taobao.com/item.htm?ft=t&id=720381649351";
+
+function getPlugins(){
+    let plugins = getValueFromCookie("plugin");
+    if (plugins) {
+        return plugins.split(",");
+    }
+    return [];
 }
+
+function setPlugin(){
+    let pluginDiv = document.getElementById("plugin");
+    let checkboxes = pluginDiv.querySelectorAll("input[type='checkbox']:checked");
+    let values = [];
+    for (let i = 0; i < checkboxes.length; i++) {
+        values.push(checkboxes[i].value);
+    }
+    setCookie("plugin",values);
+}
+function checkPlugins(){
+    let plugins = getValueFromCookie("plugin");
+    if (!plugins) {
+        plugins = [];
+    }
+    let pluginDiv = document.getElementById("plugin");
+    let checkboxes = pluginDiv.querySelectorAll("input[type='checkbox']");
+    for (let i = 0; i < checkboxes.length; i++) {
+        if (plugins.includes(checkboxes[i].value)) {
+            checkboxes[i].checked = true;
+        } else {
+            checkboxes[i].checked = false;
+        }
+    }
+}
+
+
 // 打开模态框
 function openLoginModal() {
     document.getElementById("loginModal").style.display = "block";
@@ -543,4 +560,14 @@ function openLoginModal() {
 
 function closeLoginModal() {
     document.getElementById("loginModal").style.display = "none";
+}
+
+function openPluginModal() {
+    /* 选择插件 */
+    checkPlugins();
+    document.getElementById("pluginModal").style.display = "block";
+}
+
+function closePluginModal() {
+    document.getElementById("pluginModal").style.display = "none";
 }
