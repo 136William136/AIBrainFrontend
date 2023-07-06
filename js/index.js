@@ -94,6 +94,11 @@ function initialize(){
 
     /* 用户信息小菜单 */
     userInfo()
+    /* paypal链接 */
+    let link = document.getElementById("shopping");
+    link.addEventListener("click",function (event){
+        window.location.href = "https://paypal.me/leexeechat?country.x=C2&locale.x=zh_XC";
+    });
 
     /* 主题 */
     checkTheme();
