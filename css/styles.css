@@ -295,7 +295,7 @@
 
 .plugin-button {
     border-radius: 30px;
-    /*border: 2px solid gray;*/
+    background-color: rgba(105, 152, 255, 1);
 }
 
 .checkbox + label {
