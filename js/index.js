@@ -1,7 +1,7 @@
 var md = window.markdownit();
 
-const urlPrefix = "http://localhost:8087";
-//const urlPrefix = "https://www.leexee.net/aibrain";
+//const urlPrefix = "http://localhost:8087";
+const urlPrefix = "https://www.leexee.net/aibrain";
 
 function initialize(){
     // 获取按钮元素
@@ -399,11 +399,21 @@ function verifyTimer(){
         username: username,
         password: password
     };
-    let xhr2 = new XMLHttpRequest();
-    xhr2.open("POST",urlPrefix + '/user/sendCode', true);
-    xhr2.setRequestHeader("Content-Type", "application/json");
-    xhr2.setRequestHeader("Access-Control-Allow-Origin","*");
-    xhr2.send(JSON.stringify(requestBody));
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST",urlPrefix + '/user/sendCode', true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Access-Control-Allow-Origin","*");
+    xhr.onreadystatechange = function () {
+        if (xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText);
+            if (response.code) {
+                if (response.code != 200) {
+                    alert(response.content);
+                }
+            }
+        }
+    }
+    xhr.send(JSON.stringify(requestBody));
     let countdown = 60;
     let timer = setInterval(function (){
         countdown -= 1;
