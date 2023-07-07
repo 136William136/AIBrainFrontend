@@ -130,7 +130,7 @@
     max-width: 800px;
     height: 50px;
     text-decoration: none;
-    background-color: rgb(220, 220, 225);
+    background-color: rgb(235, 235, 245);
     color: black;
     border: none;
     border-radius: 5px;
@@ -173,7 +173,7 @@
 .bottom-button {
     padding: 10px 10px;
     font-size: 16px;
-    background-color: rgb(220, 220, 225);
+    background-color: rgb(235, 235, 245);
     color: black;
     border: none;
     border-radius: 5px;
