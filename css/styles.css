@@ -315,8 +315,9 @@
 }
 
 .download-icon {
-    padding: 5px;
+    padding: 15px;
     font-size: 150%;
+    cursor: pointer;
 }
 
 .download-name {
