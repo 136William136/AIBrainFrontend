@@ -80,7 +80,8 @@
 }
 
 .bot-message {
-    background-color: hsla(214, 53%, 23%, 0.16);
+    /*background-color: hsla(214, 53%, 23%, 0.16);*/
+    background-color: rgba(209, 221, 232, 1);
     min-height: 40px;
     display: flex;
     flex-direction: column;
