@@ -390,6 +390,11 @@ function userLogin(e){
 }
 
 function verifyTimer(){
+    let verificationContainer = document.getElementById("verificationContainer");
+    if (verificationContainer.style.display === "none"){
+        return;
+    }
+
     let verificationButton = document.getElementById("verificationButton");
     verificationButton.disabled = true;
     /* 验证按钮 */
