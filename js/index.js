@@ -1,7 +1,7 @@
 var md = window.markdownit();
 
-const urlPrefix = "http://localhost:8087";
-//const urlPrefix = "https://www.leexee.net/aibrain";
+//const urlPrefix = "http://localhost:8087";
+const urlPrefix = "https://www.leexee.net/aibrain";
 
 function initialize(){
     // 获取按钮元素
@@ -361,7 +361,10 @@ function userLogin(event){
                 setCookie("chatId",response.content, 30);
                 setCookie("username",username, 30);
                 closeLoginModal();
-                setCookie("plugin",["search_on_internet_1","search_on_internet_2","generate_picture"])
+                let plugin = getValueFromCookie("plugin");
+                if (!plugin) {
+                    setCookie("plugin", ["search_on_internet_1", "generate_picture"])
+                }
                 location.reload();
             }else{
                 alert(response.content);
