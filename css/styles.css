@@ -39,7 +39,6 @@
 .user-logo {
     display: inline;
     margin-right: 5px;
-    margin-bottom: 10px;
     cursor: pointer;
     font-size: 200%;
 }
@@ -290,7 +289,7 @@
 .plugin-container {
     display: inline-block;
     position: relative;
-    right: 40px;
+    right: 42px;
     bottom: 5px;
 }
 
@@ -315,7 +314,7 @@
 }
 
 .download-icon {
-    padding: 15px;
+    margin-left: 20px;
     font-size: 150%;
     cursor: pointer;
 }
