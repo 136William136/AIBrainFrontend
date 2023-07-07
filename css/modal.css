@@ -22,7 +22,7 @@
     padding: 20px;
     border: 1px solid #888;
     width: 300px;
-    height: 230px;
+    height: 280px;
     display: flex;
     flex-direction: column;
     border-radius: 20px;
@@ -97,6 +97,29 @@
     margin-top: 20px;
     margin-left: 10px;
     border-width: 0;
+}
+
+.verification-input {
+    border-radius: 5px;
+    height: 40px;
+    width: 60%;
+    background-color: whitesmoke;
+    margin-top: 20px;
+    margin-left: 10px;
+    border-width: 0;
+}
+
+.verification-button {
+    padding: 10px 10px;
+    font-size: 16px;
+    background-color: rgba(74, 132, 176, 1);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 65px;
+    margin-bottom: 5px;
+    height: 44px;
 }
 
 .modal-icon {

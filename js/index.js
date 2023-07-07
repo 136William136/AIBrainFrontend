@@ -1,7 +1,7 @@
 var md = window.markdownit();
 
-//const urlPrefix = "http://localhost:8087";
-const urlPrefix = "https://www.leexee.net/aibrain";
+const urlPrefix = "http://localhost:8087";
+//const urlPrefix = "https://www.leexee.net/aibrain";
 
 function initialize(){
     // 获取按钮元素
@@ -98,7 +98,6 @@ function initialize(){
             settingList.style.display = 'none';
         }
     });
-
     /* 显示视频 */
     const botMessages = document.querySelectorAll(".bot-message");
     botMessages.forEach((element) => {
@@ -345,8 +344,7 @@ function addCodeCopyButton(){
     });
 }
 
-function userLogin(event){
-    event.preventDefault();
+function userLogin(e){
     let xhr = new XMLHttpRequest();
     xhr.open("POST",urlPrefix + '/user/login', true);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -354,31 +352,68 @@ function userLogin(event){
 
     let username = document.getElementById("email").value;
     let password = document.getElementById("password").value;
+    let verificationCode = document.getElementById("verificationCode").value;
     let requestBody = {
         username: username,
-        password: password
+        password: password,
+        code : verificationCode
     };
     xhr.onreadystatechange = function (){
         if (xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
-            if (response.success){
-                setCookie("chatId",response.content, 30);
-                setCookie("username",username, 30);
-                closeLoginModal();
-                let plugin = getValueFromCookie("plugin");
-                if (!plugin) {
-                    setCookie("plugin", ["search_on_internet_1", "generate_picture"])
+            if (response.code){
+                if (response.code === 200) {
+                    setCookie("chatId", response.content, 30);
+                    setCookie("username", username, 30);
+                    closeLoginModal();
+                    let plugin = getValueFromCookie("plugin");
+                    if (!plugin) {
+                        setCookie("plugin", ["search_on_internet_1", "generate_picture"])
+                    }
+                    location.reload();
+                }else if (response.code === 300){
+                    let verificationContainer = document.getElementById("verificationContainer");
+                    verificationContainer.style.display = "block";
+                }else{
+                    alert(response.content);
                 }
-                location.reload();
             }else{
                 alert(response.content);
             }
-
         } else {
             console.error("请求失败：" + xhr.status);
         }
     }
     xhr.send(JSON.stringify(requestBody));
+    e.preventDefault();
+    return false;
+}
+
+function verifyTimer(){
+    let verificationButton = document.getElementById("verificationButton");
+    verificationButton.disabled = true;
+    /* 验证按钮 */
+    let username = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+    let requestBody = {
+        username: username,
+        password: password
+    };
+    let xhr2 = new XMLHttpRequest();
+    xhr2.open("POST",urlPrefix + '/user/sendCode', true);
+    xhr2.setRequestHeader("Content-Type", "application/json");
+    xhr2.setRequestHeader("Access-Control-Allow-Origin","*");
+    xhr2.send(JSON.stringify(requestBody));
+    let countdown = 60;
+    let timer = setInterval(function (){
+        countdown -= 1;
+        verificationButton.innerHTML = countdown;
+        if (countdown <= 0){
+            clearInterval(timer);
+            verificationButton.disabled = false;
+            verificationButton.innerHTML = "Verify";
+        }
+    },1000);
 }
 
 function userInfo(){
@@ -401,7 +436,7 @@ function userInfo(){
                     return;
                 }
                 let response = JSON.parse(xhr.responseText);
-                if (response.success){
+                if (response.code && response.code == 200){
                     let quota = response.content;
                     updateQuotaLevel(quota);
                 }else{
@@ -562,6 +597,7 @@ function checkPlugins(){
 
 // 打开模态框
 function openLoginModal() {
+    document.getElementById("verificationContainer").style.display = "none";
     document.getElementById("loginModal").style.display = "block";
 }
 

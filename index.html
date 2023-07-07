@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<!--  <script src="https://accounts.google.com/gsi/client" async></script>-->
   <link rel="icon" href="img/chatbot-icon.png" type="image/png">
   <link rel="stylesheet" type="text/css" href="css/theme.css">
   <link rel="stylesheet" type="text/css" href="css/battery.css">
@@ -19,7 +20,6 @@
   <script src="node_modules/prismjs/prism.js"></script>
   <script src="node_modules/clipboard/dist/clipboard.min.js"></script>
   <script src="public.js"></script>
-
   <nav class="menu">
     <h3 class="menu-title">AI Chat</h3>
     <footer>
@@ -92,7 +92,7 @@
         <button onclick="closeLoginModal()" class="normalButton rightButton">&times;</button>
       </div>
       <div id="login" class="tabcontent">
-        <form class="modal-table" method="post" action="https://www.leexee.net/chat">
+          <form class="modal-table" method="post" action="https://www.leexee.net/chat" onsubmit="event.preventDefault();return false;">
            <div>
              <i class="fas fa-envelope modal-icon"></i>
              <input placeholder="Email" class="login-input shadow-box" type="email" id="email" name="email" required>
@@ -101,9 +101,14 @@
             <i class="fas fa-lock modal-icon"></i>
             <input placeholder="Password" class="login-input shadow-box" type="password" id="password" name="password" required>
           </div>
+          <div id="verificationContainer">
+            <i class="fas fa-code modal-icon"></i>
+            <input placeholder="Verification Code" class="login-input verification-input shadow-box" id="verificationCode">
+            <button class="verification-button" id="verificationButton" onclick="verifyTimer()">Verify</button>
+          </div>
           <input type="text" style="display: none">
           <div>
-            <button type="submit" class="normalButton centerButton" onclick="userLogin(event)">login / signup</button>
+            <button type="submit" class="normalButton centerButton" onclick="userLogin()">login / signup</button>
           </div>
         </form>
       </div>
