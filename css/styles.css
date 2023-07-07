@@ -314,6 +314,15 @@
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.3), 0 5px 10px 0 rgba(0, 0, 0, 0.2);
 }
 
+.download-icon {
+    padding: 5px;
+    font-size: 150%;
+}
+
+.download-name {
+    font-size: 60%;
+}
+
 /* 手机版本 */
 @media only screen and (max-width: 500px) {
     /* 在小屏幕设备上应用的样式 */
@@ -332,8 +341,8 @@
     }
 
     img {
-        max-width: 512px;
-        max-height: 512px;
+        max-width: 450px;
+        max-height: 450px;
     }
 
     iframe {

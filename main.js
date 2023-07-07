@@ -13,8 +13,8 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
-
+  //mainWindow.loadFile('index.html')
+  mainWindow.loadURL("https://www.leexee.net/chat")
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 }

@@ -629,3 +629,7 @@ function openPluginModal() {
 function closePluginModal() {
     document.getElementById("pluginModal").style.display = "none";
 }
+
+function downloadApp(platform){
+    window.open("https://www.leexee.net/download/" + platform, "_blank");
+}
