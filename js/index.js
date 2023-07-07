@@ -175,9 +175,13 @@ function callBackendAPI() {
             }
             let content = getDecode(e.data);
             if (!content.startsWith("[DONE]")) {
-                assistantResponse += content;
-                let convert = md.render(assistantResponse);
-                botMessage.innerHTML = convert;
+                if (content.startsWith("ProgressingImage:")){
+                    botMessage.innerHTML = md.render(content.replace("ProgressingImage:",""));
+                }else{
+                    assistantResponse += content;
+                    let convert = md.render(assistantResponse);
+                    botMessage.innerHTML = convert;
+                }
             }else{
                 let quota = content.replace("[DONE]","");
                 updateQuotaLevel(quota)
