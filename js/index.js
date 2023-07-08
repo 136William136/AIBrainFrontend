@@ -1,7 +1,7 @@
 var md = window.markdownit();
 
-//const urlPrefix = "http://localhost:8087";
-const urlPrefix = "https://www.leexee.net/aibrain";
+const urlPrefix = "http://localhost:8087";
+//const urlPrefix = "https://www.leexee.net/aibrain";
 
 function initialize(){
     // 获取按钮元素
@@ -272,7 +272,7 @@ function uploadFile(event){
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 const result = JSON.parse(xhr.responseText);
-                if (result.success === true) {
+                if (result.code && result.code === 200) {
                     userMsg.innerHTML = md.render("![Alt](" + result.content + ")");
                 } else {
                     userMsg.innerText = result.content;
