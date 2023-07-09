@@ -126,33 +126,6 @@
     color: rgba(74, 132, 176, 1);
 }
 
-.exclamation {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-left: 5px;
-}
-
-.exclamation:hover .plugin-tooltip {
-    display: block;
-}
-
-.plugin-tooltip {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    width: 150px;
-    font-size: 70%;
-    overflow: scroll;
-    background-color: rgba(34, 41, 51, 1);
-    color: whitesmoke;
-    padding: 5px;
-    border-radius: 5px;
-    display: none;
-    z-index: 9999;
-}
-
 .gray-icon {
     color: #cccccc
 }

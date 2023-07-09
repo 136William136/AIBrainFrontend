@@ -1,6 +1,6 @@
 {
   "appId": "com.chat.chatapp",
-  "productName": "MyChatApp",
+  "productName": "LeexeeChat",
   "directories": {
     "output": "dist"
   },
