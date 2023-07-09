@@ -24,17 +24,10 @@
     <h3 class="menu-title">AI Chat</h3>
     <footer>
       <p class="menu-nav">The information provided<br> is for reference only</p>
-      <p class="menu-nav support-features"><i class="fas fa-star"></i>&nbsp;Supported Features
-        <div class="features-list">
-          1. &nbsp;&nbsp;Chat
-          <br>2. &nbsp;Search on the Internet
-          <br>3. &nbsp;Generate images
-          <br>4. &nbsp;Send emails
-          <br>5. &nbsp;Analyze urls
-          <br>6. &nbsp;Search videos
-        </div>
+      <p class="menu-nav">&nbsp;
+        Supported Features&nbsp;:&nbsp;
+        <button onclick="openPluginModal()" class="features-icon bottom-button shadow fas fa-star plugin-button"></button>
       </p>
-      <p class="menu-nav">Contact us:<br>leexee.net@outlook.com<br><br><br><div id="shopping" class="shopping-cart"><i class="fas fa-shopping-cart"></i></div></p>
       <p class="menu-nav">
         <div style="margin-top: -50px">
           <div style="display: flex;justify-content: center">
@@ -56,6 +49,7 @@
           </div>
         </div>
       </p>
+      <p class="menu-nav">Contact us:<br>leexee.net@outlook.com<br><br><br><div id="shopping" class="shopping-cart"><i class="fas fa-shopping-cart"></i></div></p>
       <p class="menu-nav"></p>
       <p id="settingIcon" class="setting-icon"><i class="fas fa-cog"></i></p>
       <div id="settingList" class="setting-list">
@@ -68,7 +62,7 @@
     <i id="menuButton" class="menu-button fas fa-bars"></i>
     <span class="user-info">
       <span class="plugin-container">
-        <button onclick="openPluginModal()" class="bottom-button shadow fas fa-toolbox plugin-button"></button>
+        <button onclick="openPluginModal()" class="bottom-button shadow fas fa-star plugin-button"></button>
       </span>
       <div id="battery" class="battery shadow-box"><div id="quota-level" class="battery-level"></div></div>
       <span id="userLogo" class="user-logo"><i class="fas fa-user-circle"></i></span>
@@ -148,21 +142,37 @@
           <input onchange="setPlugin()" class="checkbox" type="checkbox"
                  id="generate_picture" name="generate_picture_checkbox" value="generate_picture">
           <label for="generate_picture">Generate pictures</label>
+          <label class="exclamation">
+            <span><i class="fas fa-exclamation-circle gray-icon"></i></span>
+            <span class="tooltip">ChatBot can generate standard/superior pictures with a description of the full picture</span>
+          </label>
         </div>
         <div>
           <input onchange="setPlugin()" class="checkbox"type="checkbox"
                  id="search_on_internet_1" name="search_on_internet_1_checkbox" value="search_on_internet_1">
           <label for="search_on_internet_1">Search on the internet</label>
+          <label class="exclamation">
+            <span><i class="fas fa-exclamation-circle gray-icon"></i></span>
+            <span class="tooltip">ChatBot can search information on the internet including videos</span>
+          </label>
         </div>
         <div>
           <input onchange="setPlugin()" class="checkbox"type="checkbox"
                  id="search_on_internet_2" name="search_on_internet_2_checkbox" value="search_on_internet_2">
           <label for="search_on_internet_2">Analyze urls</label>
+          <label class="exclamation">
+            <span><i class="fas fa-exclamation-circle gray-icon"></i></span>
+            <span class="tooltip">ChatBot can analyze the text content with a given public url</span>
+          </label>
         </div>
         <div>
           <input onchange="setPlugin()" class="checkbox" type="checkbox"
                  id="send_mail" name="send_mail_checkbox" value="send_mail">
           <label for="send_mail">Send Emails</label>
+          <label class="exclamation">
+            <span><i class="fas fa-exclamation-circle gray-icon"></i></span>
+            <span class="tooltip">ChatBot can send emails</span>
+          </label>
         </div>
       </div>
       <div>

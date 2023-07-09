@@ -24,7 +24,7 @@ function initialize(){
         if (event.keyCode === 13 && !event.ctrlKey && !event.shiftKey) {
             // 执行按钮的点击事件
             if (pauseButton.style.display === "inline"){
-                pauseButton.click();
+                //pauseButton.click();
             }else{
                 sendButton.click();
             }
