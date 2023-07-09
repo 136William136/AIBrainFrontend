@@ -134,11 +134,11 @@
     margin-left: 5px;
 }
 
-.exclamation:hover .tooltip {
+.exclamation:hover .plugin-tooltip {
     display: block;
 }
 
-.tooltip {
+.plugin-tooltip {
     position: absolute;
     top: 100%;
     left: 50%;
