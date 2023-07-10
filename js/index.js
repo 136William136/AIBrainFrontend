@@ -133,7 +133,8 @@ function changeSessionTitle(){
         document.body.removeChild(tempDiv);
         /* 保存名称 */
         let oldHtml = getHTMLFromLocalStorage(div.parentNode.id);
-        saveHTMLToLocalStorage()
+        saveSessionToLocalStorage("html-" + generateUUID() + "-" + this.textContent,oldHtml);
+        localStorage.removeItem(div.parentNode.id);
     });
 }
 

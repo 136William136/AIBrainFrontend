@@ -35,14 +35,14 @@ function generateUUID() {
 function saveHTMLToLocalStorage(currentSession) {
     let messageBox = document.getElementById("messageBox");
     // 对HTML内容进行编码，确保特殊字符正确存储
-    var encodedHTML = encodeURIComponent(messageBox.innerHTML);
+    let encodedHTML = encodeURIComponent(messageBox.innerHTML);
 
     // 将编码后的HTML内容存储到localStorage中
     localStorage.setItem(currentSession, encodedHTML);
 }
 
 function saveSessionToLocalStorage(currentSession, innerHtml){
-    var encodedHTML = encodeURIComponent(innerHtml);
+    let encodedHTML = encodeURIComponent(innerHtml);
     // 将编码后的HTML内容存储到localStorage中
     localStorage.setItem(currentSession, encodedHTML);
 }
