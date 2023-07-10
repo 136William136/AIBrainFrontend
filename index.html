@@ -53,7 +53,16 @@
       <p class="menu-nav"></p>
       <p id="settingIcon" class="setting-icon"><i class="fas fa-cog"></i></p>
       <div id="settingList" class="setting-list">
-        Theme <button onclick="changeTheme()"><i class="fas fa-moon"></i></button>
+        <div>
+          Theme <button onclick="changeTheme()"><i class="fas fa-moon"></i></button>
+        </div>
+        <div>
+          Quality
+          <select id="quality" class="quality-type">
+            <option value="standard">standard</option>
+            <option value="premium">premium</option>
+          </select>
+        </div>
       </div>
     </footer>
   </nav>

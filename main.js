@@ -8,6 +8,7 @@ function createWindow () {
     width: 1400,
     height: 1000,
     webPreferences: {
+      //partition: String(+new Date()),
       preload: path.join(__dirname, 'preload.js')
     }
   })

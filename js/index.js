@@ -120,7 +120,8 @@ function callBackendAPI() {
     let messageList = getSubMessageList(userMsg);
     const data = {
         messageList,
-        plugins: getPlugins()
+        plugins: getPlugins(),
+        quality: document.getElementById("quality")
     };
     const url = urlPrefix + '/ai/chat_stream';
     const headers = {

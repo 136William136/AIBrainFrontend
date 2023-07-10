@@ -269,8 +269,8 @@
     position: absolute;
     right: 10px;
     bottom: 35px;
-    width: 40%;
-    height: 40px;
+    width: 60%;
+    height: 60px;
     font-size: 13px;
 }
 
@@ -316,6 +316,11 @@
 
 .download-name {
     font-size: 60%;
+}
+
+.quality-type {
+    margin-top: 5px;
+    border-radius: 5px;
 }
 
 /* 手机版本 */
