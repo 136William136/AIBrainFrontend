@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href="css/styles.css">
   <link rel="stylesheet" type="text/css" href="css/modal.css">
   <link rel="stylesheet" type="text/css" href="css/layout.css">
+  <link rel="stylesheet" type="text/css" href="css/menu.css">
   <link rel="stylesheet" href="node_modules/prismjs/themes/prism.css">
   <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
   <title>Chat App</title>
@@ -23,34 +24,40 @@
   <nav class="menu">
     <h3 class="menu-title">AI Chat</h3>
     <footer>
-      <p class="menu-nav">The information provided<br> is for reference only</p>
-      <p class="menu-nav">&nbsp;
-        Supported Features&nbsp;:&nbsp;
-        <button onclick="openPluginModal()" class="features-icon bottom-button shadow fas fa-star plugin-button"></button>
-      </p>
       <p class="menu-nav">
-        <div style="margin-top: -50px">
-          <div style="display: flex;justify-content: center">
-              Download App
-          </div>
-          <div style="display: flex;justify-content: center;margin-top: 10px">
-            <div class="download-icon" onclick="downloadApp('win')"><i class="fab fa-windows"></i>
-              <br><span class="download-name">win</span>
-            </div>
-            <div class="download-icon" onclick="downloadApp('mac')"><i class="fab fa-apple"></i>
-              <br><span class="download-name">mac</span>
-            </div>
-            <div class="download-icon" onclick="downloadApp('ios')"><i class="fab fa-app-store-ios"></i>
-              <br><span class="download-name">ios</span>
-            </div>
-            <div class="download-icon" onclick="downloadApp('android')"><i class="fab fa-android"></i>
-              <br><span class="download-name">android</span>
-            </div>
+        <button onclick="addSession()" class="add-session-button">
+          <i class="fas fa-pluss"></i>Create New
+        </button>
+        <div class="top-info">
+          <div class="chat-session session-active" id="html" onclick="switchSession('html')">
+            <div contenteditable="true" class="chat-session-title">Session 1</div>
           </div>
         </div>
       </p>
-      <p class="menu-nav">Contact us:<br>leexee.net@outlook.com<br><br><br><div id="shopping" class="shopping-cart"><i class="fas fa-shopping-cart"></i></div></p>
-      <p class="menu-nav"></p>
+      <div class="base-info">
+        <p class="menu-nav">
+          <div style="margin-top: -30px">
+            <div style="display: flex;justify-content: center">
+                Download App
+            </div>
+            <div style="display: flex;justify-content: center;margin-top: 10px">
+              <div class="download-icon" onclick="downloadApp('win')"><i class="fab fa-windows"></i>
+                <br><span class="download-name">win</span>
+              </div>
+              <div class="download-icon" onclick="downloadApp('mac')"><i class="fab fa-apple"></i>
+                <br><span class="download-name">mac</span>
+              </div>
+              <div class="download-icon" onclick="downloadApp('ios')"><i class="fab fa-app-store-ios"></i>
+                <br><span class="download-name">ios</span>
+              </div>
+              <div class="download-icon" onclick="downloadApp('android')"><i class="fab fa-android"></i>
+                <br><span class="download-name">android</span>
+              </div>
+            </div>
+          </div>
+        </p>
+        <p class="menu-nav">Contact us:<br>leexee.net@outlook.com<br><br><br><div id="shopping" class="shopping-cart"><i class="fas fa-shopping-cart"></i></div></p>
+      </div>
       <p id="settingIcon" class="setting-icon"><i class="fas fa-cog"></i></p>
       <div id="settingList" class="setting-list">
         <div>

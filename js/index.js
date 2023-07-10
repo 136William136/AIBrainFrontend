@@ -2,7 +2,7 @@ var md = window.markdownit();
 
 //const urlPrefix = "http://localhost:8087";
 const urlPrefix = "https://www.leexee.net/aibrain";
-
+let currentSession = "html";
 function initialize(){
     // 获取按钮元素
     let sendButton = document.getElementById("sendButton");
@@ -10,14 +10,8 @@ function initialize(){
     let textarea = document.getElementById("inputText");
     let messageBox = document.getElementById("messageBox");
     //加载历史内容,并给按钮添加回事件
-    messageBox.innerHTML = getHTMLFromLocalStorage();
-    const deleteButtons = document.querySelectorAll('.user-delete, .bot-delete');
-    deleteButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            button.parentNode.remove();
-        });
-    });
-    addCodeCopyButton();
+    messageBox.innerHTML = getHTMLFromLocalStorage("html");
+    addButtonFunctions();
     // 添加键盘事件监听器
     document.addEventListener("keydown", function(event) {
         // 检查按下的键是否是回车键（键码为13）
@@ -104,9 +98,113 @@ function initialize(){
         displayVideos(element);
     });
 
+    /* 生成session */
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        if (key.startsWith("html-")) {
+            addSession(key);
+        }
+    }
+
+    document.getElementById("html").click();
+
+    changeSessionTitle();
 }
 
 initialize();
+
+function changeSessionTitle(){
+    let div = document.querySelector('div[contenteditable]');
+    div.addEventListener('blur', function() {
+        let content = this.textContent;
+        let maxWidth = this.clientWidth;
+        let tempDiv = document.createElement('div');
+        tempDiv.style.position = 'absolute';
+        tempDiv.style.left = '-9999px';
+        tempDiv.style.whiteSpace = 'nowrap';
+        document.body.appendChild(tempDiv);
+        for (let i = 0; i < content.length; i++) {
+            tempDiv.textContent = content.substring(0, i + 1);
+            if (tempDiv.offsetWidth > maxWidth) {
+                this.textContent = content.substring(0, i);
+                break;
+            }
+        }
+        document.body.removeChild(tempDiv);
+        /* 保存名称 */
+        let oldHtml = getHTMLFromLocalStorage(div.parentNode.id);
+        saveHTMLToLocalStorage()
+    });
+}
+
+function addButtonFunctions(){
+    const deleteButtons = document.querySelectorAll('.user-delete, .bot-delete');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            button.parentNode.remove();
+        });
+    });
+    addCodeCopyButton();
+}
+
+function addSession(id){
+    // 获取当前chat-session的数量
+    let topInfo = document.querySelector('.top-info');
+    let chatSessions = topInfo.querySelectorAll('.chat-session').length;
+    // 如果chat-session数量小于10，则新增一个chat-session
+    if (chatSessions < 10) {
+        let newChatSession = document.createElement('div');
+        newChatSession.classList.add('chat-session');
+        let defaultHtml = '<div contenteditable="true"  class="chat-session-title">New Session</div>';
+        if (id) {
+            newChatSession.id = id;
+            let sessionNameList = id.split("-");
+            if (sessionNameList[2]) {
+                defaultHtml = '<div contenteditable="true"  class="chat-session-title">'+sessionNameList[2]+'</div>';
+            }
+        }else{
+            newChatSession.id = "html-" + generateUUID();
+        }
+        newChatSession.innerHTML = defaultHtml;
+        topInfo.appendChild(newChatSession);
+        /* delete */
+        let deleteIcon = document.createElement("img");
+        deleteIcon.src = "img/delete.png";
+        deleteIcon.classList.add("session-delete");
+        newChatSession.appendChild(deleteIcon);
+        deleteIcon.addEventListener("click",function (event){
+            if (currentSession == newChatSession.id){
+                currentSession = "html";
+                switchSession(currentSession);
+            }
+            topInfo.removeChild(newChatSession);
+            localStorage.removeItem(newChatSession.id);
+        });
+        newChatSession.addEventListener("click",function (event){
+            if (!deleteIcon.contains(event.target)){
+                switchSession(newChatSession.id);
+            }
+        });
+        document.getElementById("messageBox").innerHTML = getHTMLFromLocalStorage(newChatSession.id);
+        saveHTMLToLocalStorage(newChatSession.id);
+        changeSessionTitle();
+    }
+}
+
+function switchSession(id){
+    currentSession = id;
+    let messageBox = document.getElementById("messageBox");
+    messageBox.innerHTML = getHTMLFromLocalStorage(currentSession);
+    addButtonFunctions();
+
+    let sessionTitles = document.getElementsByClassName('chat-session');
+    for (let i = 0; i < sessionTitles.length; i++) {
+        sessionTitles[i].classList.remove('session-active');
+    }
+    // 添加active类到被点击的chat-session-title
+    let clickedSession = document.getElementById(id);
+    clickedSession.classList.add('session-active');
+}
 
 function callBackendAPI() {
     /* 清空内容，禁用发送按钮 */
@@ -189,7 +287,7 @@ function callBackendAPI() {
                 pauseButton.style.display = "none";
                 addCodeCopyButton();
                 displayVideos(botMessage);
-                saveHTMLToLocalStorage();
+                saveHTMLToLocalStorage(currentSession);
             }
             Prism.highlightAll();
             /* 滚动到底部 */
@@ -278,7 +376,7 @@ function uploadFile(event){
                 } else {
                     userMsg.innerText = result.content;
                 }
-                saveHTMLToLocalStorage();
+                saveHTMLToLocalStorage(currentSession);
                 // 处理上传成功后的逻辑
             } else {
                 console.error('Error:', xhr.status);

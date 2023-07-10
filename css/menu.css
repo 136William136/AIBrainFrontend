@@ -1,0 +1,97 @@
+.menu-title {
+    text-align: center;
+    color: white;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+}
+
+.chat-session {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 50px;
+    margin-top: 20px;
+    border: 1px solid gray;
+    background-color: rgba(102, 128, 138, 1);
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.session-active {
+    background-color: rgba(90, 102, 138, 1);
+}
+
+.chat-session-title {
+    width: 50%;
+    text-align: center;
+    max-height: 45px;
+    overflow: auto;
+    cursor: pointer;
+}
+
+.session-delete {
+    width:15px;
+    height:15px;
+    border-radius:60%;
+    position: relative;
+    top:-25px;
+    right:-55px;
+    opacity: 0.3;
+}
+
+.add-session-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 40px;
+    margin-top: -10px;
+    border: 1px;
+    background-color: rgba(127, 63, 138, 1);
+    color: white;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.menu-nav {
+    text-align: center;
+    color: rgba(206, 207, 200, 1);
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.shopping-cart {
+    display: flex;
+    justify-content: center;
+    color: cornflowerblue;
+    margin-top: -50px;
+}
+
+.top-info {
+    overflow-y: scroll;
+    height: calc(100vh - 410px);
+}
+
+.base-info {
+    width: 100%;
+    position: absolute;
+    bottom: 30px;
+}
+
+.setting-list {
+    text-align: center;
+    display: none;
+    background-color: black;
+    color: white;
+    border: 1px solid #ccc;
+    position: absolute;
+    right: 10px;
+    bottom: 35px;
+    width: 60%;
+    height: 60px;
+    font-size: 13px;
+}
