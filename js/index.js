@@ -121,7 +121,7 @@ function callBackendAPI() {
     const data = {
         messageList,
         plugins: getPlugins(),
-        quality: document.getElementById("quality")
+        quality: document.getElementById("quality").value
     };
     const url = urlPrefix + '/ai/chat_stream';
     const headers = {
