@@ -2,7 +2,7 @@ var md = window.markdownit();
 
 //const urlPrefix = "http://localhost:8087";
 const urlPrefix = "https://www.leexee.net/aibrain";
-let currentSession = "html";
+let currentSession = getFirstSession();
 function initialize(){
     // 获取按钮元素
     let sendButton = document.getElementById("sendButton");
@@ -10,7 +10,7 @@ function initialize(){
     let textarea = document.getElementById("inputText");
     let messageBox = document.getElementById("messageBox");
     //加载历史内容,并给按钮添加回事件
-    messageBox.innerHTML = getHTMLFromLocalStorage("html");
+    messageBox.innerHTML = getHTMLFromLocalStorage(getFirstSession());
     addButtonFunctions();
     // 添加键盘事件监听器
     document.addEventListener("keydown", function(event) {
@@ -97,24 +97,22 @@ function initialize(){
     botMessages.forEach((element) => {
         displayVideos(element);
     });
-
     /* 生成session */
-    for (let i = 0; i < localStorage.length; i++) {
-        let key = localStorage.key(i);
-        if (key.startsWith("html-")) {
-            addSession(key);
+    let sessionList = JSON.parse(getHTMLFromLocalStorage("sessionName"));
+    console.log(sessionList);
+    for(let sessionName in sessionList){
+        if (sessionName.startsWith("html::")) {
+            let sessionValue = sessionList[sessionName];
+            addSession(sessionName, sessionValue)
         }
     }
 
-    document.getElementById("html").click();
-
-    changeSessionTitle();
+    document.getElementById(getFirstSession()).click();
 }
 
 initialize();
 
-function changeSessionTitle(){
-    let div = document.querySelector('div[contenteditable]');
+function changeSessionTitle(div){
     div.addEventListener('blur', function() {
         let content = this.textContent;
         let maxWidth = this.clientWidth;
@@ -131,10 +129,8 @@ function changeSessionTitle(){
             }
         }
         document.body.removeChild(tempDiv);
-        /* 保存名称 */
-        let oldHtml = getHTMLFromLocalStorage(div.parentNode.id);
-        saveSessionToLocalStorage("html-" + generateUUID() + "-" + this.textContent,oldHtml);
-        localStorage.removeItem(div.parentNode.id);
+        /* 保存 */
+        updateSessionName(div.parentNode.id, this.textContent);
     });
 }
 
@@ -148,7 +144,16 @@ function addButtonFunctions(){
     addCodeCopyButton();
 }
 
-function addSession(id){
+function getFirstSession(){
+    const chatSessions = document.querySelectorAll('.chat-session');
+    if (chatSessions.length > 0) {
+        const firstChatSession = chatSessions[0];
+        const firstChatSessionId = firstChatSession.id;
+        return firstChatSessionId;
+    }
+    return "";
+}
+function addSession(id, name){
     // 获取当前chat-session的数量
     let topInfo = document.querySelector('.top-info');
     let chatSessions = topInfo.querySelectorAll('.chat-session').length;
@@ -156,15 +161,15 @@ function addSession(id){
     if (chatSessions < 10) {
         let newChatSession = document.createElement('div');
         newChatSession.classList.add('chat-session');
-        let defaultHtml = '<div contenteditable="true"  class="chat-session-title">New Session</div>';
+        let defaultName = "New Session";
+        if (name){
+            defaultName = name;
+        }
+        let defaultHtml = '<div contenteditable="true"  class="chat-session-title">'+defaultName+'</div>';
         if (id) {
             newChatSession.id = id;
-            let sessionNameList = id.split("-");
-            if (sessionNameList[2]) {
-                defaultHtml = '<div contenteditable="true"  class="chat-session-title">'+sessionNameList[2]+'</div>';
-            }
         }else{
-            newChatSession.id = "html-" + generateUUID();
+            newChatSession.id = "html::" + generateUUID();
         }
         newChatSession.innerHTML = defaultHtml;
         topInfo.appendChild(newChatSession);
@@ -175,11 +180,13 @@ function addSession(id){
         newChatSession.appendChild(deleteIcon);
         deleteIcon.addEventListener("click",function (event){
             if (currentSession == newChatSession.id){
-                currentSession = "html";
+                currentSession = getFirstSession();
                 switchSession(currentSession);
             }
+            deleteSessionName(newChatSession.id);
             topInfo.removeChild(newChatSession);
             localStorage.removeItem(newChatSession.id);
+
         });
         newChatSession.addEventListener("click",function (event){
             if (!deleteIcon.contains(event.target)){
@@ -188,7 +195,8 @@ function addSession(id){
         });
         document.getElementById("messageBox").innerHTML = getHTMLFromLocalStorage(newChatSession.id);
         saveHTMLToLocalStorage(newChatSession.id);
-        changeSessionTitle();
+        updateSessionName(newChatSession.id, defaultName);
+        changeSessionTitle(newChatSession.querySelector('div:first-child'));
     }
 }
 

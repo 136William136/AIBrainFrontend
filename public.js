@@ -41,16 +41,16 @@ function saveHTMLToLocalStorage(currentSession) {
     localStorage.setItem(currentSession, encodedHTML);
 }
 
-function saveSessionToLocalStorage(currentSession, innerHtml){
-    let encodedHTML = encodeURIComponent(innerHtml);
+function saveSessionToLocalStorage(key, content){
+    let encodedContent = encodeURIComponent(content);
     // 将编码后的HTML内容存储到localStorage中
-    localStorage.setItem(currentSession, encodedHTML);
+    localStorage.setItem(key, encodedContent);
 }
 
 // 从localStorage中获取存储的HTML内容
 function getHTMLFromLocalStorage(session) {
     // 获取存储的HTML内容
-    var encodedHTML = localStorage.getItem(session);
+    let encodedHTML = localStorage.getItem(session);
 
     // 判断是否存在存储的HTML内容
     if (encodedHTML) {
@@ -60,6 +60,26 @@ function getHTMLFromLocalStorage(session) {
 
     // 如果没有存储的HTML内容，则返回空字符串
     return "";
+}
+
+function updateSessionName(sessionId, sessionName){
+    let sessionMap = getHTMLFromLocalStorage("sessionName");
+    let jsonObject = {};
+    if (sessionMap != ""){
+        jsonObject = JSON.parse(sessionMap);
+    }
+    jsonObject[sessionId] = sessionName;
+    saveSessionToLocalStorage("sessionName",JSON.stringify(jsonObject));
+}
+
+function deleteSessionName(sessionId){
+    let sessionMap = getHTMLFromLocalStorage("sessionName");
+    let jsonObject = {};
+    if (sessionMap != ""){
+        jsonObject = JSON.parse(sessionMap);
+    }
+    delete jsonObject[sessionId];
+    saveSessionToLocalStorage("sessionName",JSON.stringify(jsonObject));
 }
 
 function changeTheme(){
