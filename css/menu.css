@@ -36,9 +36,11 @@
     height:15px;
     border-radius:60%;
     position: relative;
-    top:-25px;
-    right:-64px;
-    opacity: 0.3;
+    /*top:-25px;*/
+    /*right:-64px;*/
+    right: -50px;
+    opacity: 0.9;
+    cursor: pointer;
 }
 
 .add-session-button {

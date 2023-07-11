@@ -179,8 +179,9 @@ function addSession(id, name){
         newChatSession.innerHTML = defaultHtml;
         topInfo.appendChild(newChatSession);
         /* delete */
-        let deleteIcon = document.createElement("img");
-        deleteIcon.src = "img/delete.png";
+        let deleteIcon = document.createElement("i");
+        deleteIcon.classList.add("fas");
+        deleteIcon.classList.add("fa-trash-alt");
         deleteIcon.classList.add("session-delete");
         newChatSession.appendChild(deleteIcon);
         deleteIcon.addEventListener("click",function (event){
