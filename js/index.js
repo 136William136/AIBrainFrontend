@@ -96,13 +96,15 @@ function initialize(){
         displayVideos(element);
     });
     /* 生成session */
-    let sessionList = JSON.parse(getHTMLFromLocalStorage("sessionName"));
-    for(let sessionName in sessionList){
-        if (sessionName.startsWith("html::")) {
-            let sessionValue = sessionList[sessionName];
-            addSession(sessionName, sessionValue)
+    try {
+        let sessionList = JSON.parse(getHTMLFromLocalStorage("sessionName"));
+        for (let sessionName in sessionList) {
+            if (sessionName.startsWith("html::")) {
+                let sessionValue = sessionList[sessionName];
+                addSession(sessionName, sessionValue)
+            }
         }
-    }
+    }catch{}
 
     document.getElementById(getFirstSession()).click();
 
@@ -110,6 +112,14 @@ function initialize(){
 
     //加载历史内容,并给按钮添加回事件
     messageBox.innerHTML = getHTMLFromLocalStorage(getFirstSession());
+
+    //用户没登录
+    if (getValueFromCookie("chatId") === ""){
+        setTimeout(function (){
+            openLoginModal();
+        },1000);
+
+    }
 }
 
 initialize();
