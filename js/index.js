@@ -2,15 +2,13 @@ var md = window.markdownit();
 
 //const urlPrefix = "http://localhost:8087";
 const urlPrefix = "https://www.leexee.net/aibrain";
-let currentSession = getFirstSession();
+let currentSession;
 function initialize(){
     // 获取按钮元素
     let sendButton = document.getElementById("sendButton");
     let pauseButton = document.getElementById("pauseButton");
     let textarea = document.getElementById("inputText");
     let messageBox = document.getElementById("messageBox");
-    //加载历史内容,并给按钮添加回事件
-    messageBox.innerHTML = getHTMLFromLocalStorage(getFirstSession());
     addButtonFunctions();
     // 添加键盘事件监听器
     document.addEventListener("keydown", function(event) {
@@ -99,7 +97,6 @@ function initialize(){
     });
     /* 生成session */
     let sessionList = JSON.parse(getHTMLFromLocalStorage("sessionName"));
-    console.log(sessionList);
     for(let sessionName in sessionList){
         if (sessionName.startsWith("html::")) {
             let sessionValue = sessionList[sessionName];
@@ -108,12 +105,19 @@ function initialize(){
     }
 
     document.getElementById(getFirstSession()).click();
+
+    currentSession = getFirstSession();
+
+    //加载历史内容,并给按钮添加回事件
+    messageBox.innerHTML = getHTMLFromLocalStorage(getFirstSession());
 }
 
 initialize();
 
 function changeSessionTitle(div){
     div.addEventListener('blur', function() {
+        div.setAttribute('contenteditable', 'false');
+        div.classList.remove("content-edit");
         let content = this.textContent;
         let maxWidth = this.clientWidth;
         let tempDiv = document.createElement('div');
@@ -151,7 +155,8 @@ function getFirstSession(){
         const firstChatSessionId = firstChatSession.id;
         return firstChatSessionId;
     }
-    return "";
+    let session = addSession();
+    return session.id;
 }
 function addSession(id, name){
     // 获取当前chat-session的数量
@@ -161,11 +166,11 @@ function addSession(id, name){
     if (chatSessions < 10) {
         let newChatSession = document.createElement('div');
         newChatSession.classList.add('chat-session');
-        let defaultName = "New Session";
+        let defaultName = "Session " + (chatSessions + 1);
         if (name){
             defaultName = name;
         }
-        let defaultHtml = '<div contenteditable="true"  class="chat-session-title">'+defaultName+'</div>';
+        let defaultHtml = '<div class="chat-session-title">'+defaultName+'</div>';
         if (id) {
             newChatSession.id = id;
         }else{
@@ -179,24 +184,43 @@ function addSession(id, name){
         deleteIcon.classList.add("session-delete");
         newChatSession.appendChild(deleteIcon);
         deleteIcon.addEventListener("click",function (event){
+            deleteSessionName(newChatSession.id);
+            topInfo.removeChild(newChatSession);
+            localStorage.removeItem(newChatSession.id);
             if (currentSession == newChatSession.id){
                 currentSession = getFirstSession();
                 switchSession(currentSession);
             }
-            deleteSessionName(newChatSession.id);
-            topInfo.removeChild(newChatSession);
-            localStorage.removeItem(newChatSession.id);
-
         });
+        /* edit */
+        let editIcon = document.createElement("i");
+        editIcon.classList.add("fas");
+        editIcon.classList.add("fa-edit");
+        editIcon.style.cursor = "pointer";
+        newChatSession.appendChild(editIcon);
+
+        editIcon.addEventListener("click", function (event) {
+            let sessionTitle = newChatSession.querySelector('div');
+            if (sessionTitle.getAttribute('contenteditable') === 'true'){
+                sessionTitle.setAttribute('contenteditable', 'false');
+                sessionTitle.classList.remove("content-edit");
+            }else{
+                sessionTitle.setAttribute('contenteditable', 'true');
+                sessionTitle.classList.add("content-edit");
+            }
+        });
+
         newChatSession.addEventListener("click",function (event){
             if (!deleteIcon.contains(event.target)){
                 switchSession(newChatSession.id);
             }
         });
-        document.getElementById("messageBox").innerHTML = getHTMLFromLocalStorage(newChatSession.id);
+        newChatSession.click();
+
         saveHTMLToLocalStorage(newChatSession.id);
         updateSessionName(newChatSession.id, defaultName);
         changeSessionTitle(newChatSession.querySelector('div:first-child'));
+        return newChatSession;
     }
 }
 

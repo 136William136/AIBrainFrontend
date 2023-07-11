@@ -37,7 +37,7 @@
     border-radius:60%;
     position: relative;
     top:-25px;
-    right:-55px;
+    right:-64px;
     opacity: 0.3;
 }
 
@@ -48,6 +48,7 @@
     width: 60%;
     height: 40px;
     margin-top: -10px;
+    margin-bottom: -15px;
     border: 1px;
     background-color: rgba(127, 63, 138, 1);
     color: white;
@@ -73,7 +74,7 @@
 
 .top-info {
     overflow-y: scroll;
-    height: calc(100vh - 410px);
+    height: calc(100vh - 400px);
 }
 
 .base-info {
@@ -94,4 +95,9 @@
     width: 60%;
     height: 60px;
     font-size: 13px;
+}
+
+.content-edit {
+    background-color: ghostwhite;
+    color: black;
 }
