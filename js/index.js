@@ -308,7 +308,18 @@ function callBackendAPI() {
         botMessage.parentNode.remove();
     });
 
+    source.onerror = function (event) {
+        botMessage.innerHTML = md.render("System is busy");
+        source.close();
+    }
+
+    let timer = setTimeout(function (){
+        botMessage.innerHTML = md.render("System is busy");
+        source.close();
+    },60 * 1000);
+
     source.addEventListener('message', function(e) {
+        clearTimeout(timer);
         if (!paused) {
             /* 判断当前是否是底部 */
             let toBottom = false;
