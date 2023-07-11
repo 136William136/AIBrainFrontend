@@ -249,6 +249,10 @@
     bottom: 5px;
 }
 
+.plugin-div-container {
+    margin-top: 10px;
+}
+
 .plugin-button {
     border-radius: 30px;
     background-color: rgba(105, 152, 255, 1);
