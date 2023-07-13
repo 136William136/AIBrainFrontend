@@ -53,7 +53,10 @@
             </div>
           </div>
         </p>
-        <p class="menu-nav">Contact us:<br>leexee.net@outlook.com<br><br><br><div id="shopping" class="shopping-cart"><i class="fas fa-shopping-cart"></i></div></p>
+        <p class="menu-nav">Contact us:<br>leexee.net@outlook.com<br><br><br>
+<!--          <div id="shopping" class="shopping-cart"><i class="fas fa-shopping-cart"></i></div>-->
+<!--           <div onclick="openPaymentModal()" class="shopping-cart"><i class="fas fa-shopping-cart"></i></div>-->
+        </p>
       </div>
       <p id="settingIcon" class="setting-icon"><i class="fas fa-cog"></i></p>
       <div id="settingList" class="setting-list">
@@ -139,6 +142,20 @@
             <button type="submit" class="normalButton centerButton" onclick="userLogin()">login / signup</button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+  <!-- 支付模态框 -->
+  <div id="paymentModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title"> <i class="fab fa-paypal modal-icon"></i>&nbsp;&nbsp;Buy Credit</span>
+        <button onclick="closePaymentModal()" class="normalButton rightButton">&times;</button>
+      </div>
+      <div id="payment" class="tabcontent">
+        <div class="payment-container">
+          <div id="paypal-button-container"></div>
+        </div>
       </div>
     </div>
   </div>

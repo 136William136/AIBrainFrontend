@@ -157,3 +157,7 @@
     display: none;
     z-index: 9999;
 }
+
+.payment-container {
+    margin-top: 20px;
+}
