@@ -78,7 +78,7 @@ function initialize(){
     /* paypal链接 */
     // let link = document.getElementById("shopping");
     // link.addEventListener("click",function (event){
-    //     window.location.href = "https://paypal.me/leexeechat?country.x=C2&locale.x=zh_XC";
+    //     window.location.href = "https://www.paypal.com/paypalme/leexeew";
     // });
 
     /* 主题 */
