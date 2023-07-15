@@ -72,6 +72,7 @@
     justify-content: center;
     color: cornflowerblue;
     margin-top: -50px;
+    cursor: pointer;
 }
 
 .top-info {

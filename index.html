@@ -21,6 +21,48 @@
   <script src="node_modules/prismjs/prism.js"></script>
   <script src="node_modules/clipboard/dist/clipboard.min.js"></script>
   <script src="public.js"></script>
+<!--  <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>-->
+  <script>
+    paypal.Buttons({
+      createOrder() {
+        return fetch("http://localhost:8087/payment/create-paypal-order", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            cart: [
+              {
+                sku: "YOUR_PRODUCT_STOCK_KEEPING_UNIT",
+                quantity: "YOUR_PRODUCT_QUANTITY",
+              },
+            ],
+          }),
+        })
+                .then((response) => response.json())
+                .then((order) => order.id);
+      },
+      // Finalize the transaction on the server after payer approval
+      onApprove(data) {
+        return fetch("http://localhost:8087/payment/capture-paypal-order", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            orderID: data.orderID
+          })
+        })
+                .then((response) => response.json())
+                .then((orderData) => {
+                  // Successful capture! For dev/demo purposes:
+                  console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                  const transaction = orderData.purchase_units[0].payments.captures[0];
+                  alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+                });
+      }
+    }).render('#paypal-button-container');
+  </script>
   <nav class="menu">
     <h3 class="menu-title">AI Chat</h3>
     <footer>
@@ -92,7 +134,9 @@
     <main>
     <span class="bottom-message" id="bottomMessage">
       <button id="clearButton" onclick="clearMessageBox()" class="bottom-button shadow fas fa-trash"></button>
-      <textarea rows="4" type="text" id="inputText" placeholder="" class="user-input shadow"></textarea>
+      <span class="bottom-input-message" id="bottomInputMessage">
+        <textarea rows="4" type="text" id="inputText" placeholder="" class="user-input shadow"></textarea>
+      </span>
       <button id="sendButton" onclick="callBackendAPI()"
               class="bottom-button shadow fas fa-paper-plane"></button>
       <button id="pauseButton"
@@ -119,7 +163,7 @@
   <div id="loginModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <span class="modal-title"> <i class="fas fa-user modal-icon"></i>&nbsp;&nbsp;Login / Signup</span>
+        <span class="modal-title"> <i class="fas fa-user modal-icon"></i>&nbsp;&nbsp;Login / Sign up</span>
         <button onclick="closeLoginModal()" class="normalButton rightButton">&times;</button>
       </div>
       <div id="login" class="tabcontent">
@@ -139,7 +183,7 @@
           </div>
           <input type="text" style="display: none">
           <div>
-            <button type="submit" class="normalButton centerButton" onclick="userLogin()">login / signup</button>
+            <button type="submit" class="normalButton centerButton" onclick="userLogin()">login / sign up</button>
           </div>
         </form>
       </div>

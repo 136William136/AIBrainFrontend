@@ -3,6 +3,7 @@ var md = window.markdownit();
 //const urlPrefix = "http://localhost:8087";
 const urlPrefix = "https://www.leexee.net/aibrain";
 let currentSession;
+let timeoutId;
 function initialize(){
     // 获取按钮元素
     let sendButton = document.getElementById("sendButton");
@@ -43,17 +44,22 @@ function initialize(){
 
     });
 
+
     textarea.addEventListener("keydown", function(event) {
         if (event.keyCode === 13) {
             event.preventDefault();
             if (event.ctrlKey || event.shiftKey) {
                 if (!textarea.value.endsWith("\n") && textarea.value.trim() != "") {
                     textarea.value += "\n";
-                    textarea.scrollTop = textarea.scrollHeight;
+                    event.preventDefault();
                 }
             }
         }
+        changeTextAreaSize();
     });
+    textarea.addEventListener('input', function() {
+        changeTextAreaSize();
+    }, false);
 
     if (!isMobileDevice()){
         menuButton.click();
@@ -124,6 +130,19 @@ function initialize(){
 
 initialize();
 
+function changeTextAreaSize(){
+    clearTimeout(timeoutId);
+    setTimeout(() => {
+        let inputText = document.getElementById("inputText");
+        inputText.style.height = '40px';
+        inputText.style.padding = '0';
+        if (inputText.scrollHeight > 40) {
+            inputText.style.height = inputText.scrollHeight + 'px';
+        } else {
+            this.style.height = '40px';
+        }
+    },100);
+}
 function changeSessionTitle(div){
     div.addEventListener('blur', function() {
         div.setAttribute('contenteditable', 'false');
@@ -255,6 +274,8 @@ function callBackendAPI() {
     let userMsg = document.getElementById('inputText').value.trim();
     document.getElementById('inputText').value = "";
     document.getElementById('inputText').scrollTop = 0;
+    document.getElementById('inputText').style.height = '40px';
+
     if (userMsg.trim().length == 0){
         return;
     }
