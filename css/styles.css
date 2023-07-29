@@ -276,7 +276,7 @@
 .doc-msg {
     cursor:pointer;
     text-decoration: none;
-    background-color:white;
+    background-color:rgba(232, 255, 253, 1);
     color:black;
     height:50px;
     display: flex;
