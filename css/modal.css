@@ -55,7 +55,8 @@
 .pluginSubmitButton {
     display: block;
     margin: 0 auto;
-    margin-top: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     height: 60%;
     width: 50%;
 }
@@ -63,8 +64,8 @@
 .centerButton {
     display: block;
     margin: 0 auto;
-    margin-top: 30px;
-    height: 20%;
+    margin-top: 20px;
+    height: 40px;
     width: 50%;
 }
 

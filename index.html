@@ -242,10 +242,19 @@
         <div class="plugin-div-container">
           <input onchange="setPlugin()" class="checkbox" type="checkbox"
                  id="send_mail" name="send_mail_checkbox" value="send_mail">
-          <label for="send_mail">Send Emails</label>
+          <label for="send_mail">Send emails</label>
           <label class="exclamation">
             <span><i class="fas fa-exclamation-circle gray-icon"></i></span>
             <span class="plugin-tooltip">ChatBot can send emails</span>
+          </label>
+        </div>
+        <div class="plugin-div-container">
+          <input onchange="setPlugin()" class="checkbox" type="checkbox"
+                 id="analyze_file" name="analyze_file_checkbox" value="analyze_file">
+          <label for="analyze_file">Analyze files</label>
+          <label class="exclamation">
+            <span><i class="fas fa-exclamation-circle gray-icon"></i></span>
+            <span class="plugin-tooltip">ChatBot can analyze doc files you uploaded</span>
           </label>
         </div>
       </div>
