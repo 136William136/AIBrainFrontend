@@ -1,7 +1,7 @@
 var md = window.markdownit();
 
-const urlPrefix = "http://localhost:8087";
-//const urlPrefix = "https://www.leexee.net/aibrain";
+//const urlPrefix = "http://localhost:8087";
+const urlPrefix = "https://www.leexee.net/aibrain";
 let currentSession;
 let timeoutId;
 function initialize(){
