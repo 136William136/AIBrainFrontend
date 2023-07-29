@@ -1,7 +1,7 @@
 var md = window.markdownit();
 
-//const urlPrefix = "http://localhost:8087";
-const urlPrefix = "https://www.leexee.net/aibrain";
+const urlPrefix = "http://localhost:8087";
+//const urlPrefix = "https://www.leexee.net/aibrain";
 let currentSession;
 let timeoutId;
 function initialize(){
@@ -442,13 +442,17 @@ function uploadFile(event){
             userMsg.innerText = percent + '%';
         }
     });
-
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 const result = JSON.parse(xhr.responseText);
                 if (result.code && result.code === 200) {
-                    userMsg.innerHTML = md.render("![Alt](" + result.content + ")");
+                    if (result.content.endsWith(".png") || result.content.endsWith(".jpg")
+                        || result.content.endsWith(".jpeg") ||result.content.endsWith(".gif")){
+                        userMsg.innerHTML = md.render("![Alt](" + result.content + ")");
+                    }else{
+                        userMsg.innerHTML = "<a class='doc-msg shadow' href='"+result.content+"' target='_blank'>"+file.name+"</a>";
+                    }
                 } else {
                     userMsg.innerText = result.content;
                 }
@@ -657,7 +661,7 @@ function getSubMessageList(userMsg){
     /* 上下文 */
     const messageBox = document.getElementById("messageBox");
     const children = messageBox.children;
-    const startIndex = Math.max(children.length - 7, 0);
+    const startIndex = Math.max(children.length - 100, 0);
     let messageList = [];
     for (let i = startIndex; i < children.length; i++) {
         const child = children[i].querySelector("div");
@@ -726,8 +730,12 @@ function combineTextAndHTML(element) {
         }
 
         // 如果是图片节点，则将完整的 HTML 添加到结果中
-        if (child.nodeType === Node.ELEMENT_NODE && child.tagName === 'IMG') {
+        if (child.nodeType === Node.ELEMENT_NODE && child.tagName.toLowerCase() === 'img') {
             result += imageUrlToMarkdown(child.src);
+        }
+        //如果是a标签
+        if (child.nodeType === Node.ELEMENT_NODE && child.tagName.toLowerCase() === "a") {
+            result += fileUrlToMarkdown(child.href);
         }
 
         // 如果是元素节点，则递归调用函数处理子元素
@@ -742,6 +750,11 @@ function combineTextAndHTML(element) {
 function imageUrlToMarkdown(url) {
     return `![Alt](${url})`;
 }
+
+function fileUrlToMarkdown(url) {
+    return `FILE:(`+url+`)`;
+}
+
 
 function getLoading(){
     let loading = document.createElement("i");
