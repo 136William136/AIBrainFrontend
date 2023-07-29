@@ -10,7 +10,7 @@ function initialize(){
     let pauseButton = document.getElementById("pauseButton");
     let textarea = document.getElementById("inputText");
     let messageBox = document.getElementById("messageBox");
-    addButtonFunctions();
+
     // 添加键盘事件监听器
     document.addEventListener("keydown", function(event) {
         // 检查按下的键是否是回车键（键码为13）
@@ -126,6 +126,8 @@ function initialize(){
         },1000);
 
     }
+
+    addButtonFunctions();
 }
 
 initialize();
