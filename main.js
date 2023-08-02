@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Menu, MenuItem } = require('electron')
 const path = require('path')
 
 function createWindow () {
@@ -10,6 +10,17 @@ function createWindow () {
     webPreferences: {
       //partition: String(+new Date()),
       preload: path.join(__dirname, 'preload.js')
+    }
+  })
+  // 启用右键菜单
+  mainWindow.webContents.on('context-menu', (e, params) => {
+    if (params.mediaType === 'image') {
+      const contextMenu = new Menu()
+      contextMenu.append(new MenuItem({
+        label: 'copy',
+        click: () => { mainWindow.webContents.copyImageAt(params.x, params.y) }
+      }))
+      contextMenu.popup(mainWindow)
     }
   })
 
